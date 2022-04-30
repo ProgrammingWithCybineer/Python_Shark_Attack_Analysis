@@ -32,29 +32,7 @@ database = "Shark_Attack_Login",
 # Create Cursor Instance
 my_cursor = mydb.cursor()
 
-
-def sharkAttackData():
-    output = hiveCtx.read\
-    .format("csv")\
-    .option("inferSchema", "true")\
-    .option("header", "true")\
-    .load("input/GSAF5 (1_2).csv")
-            
-    #output.limit(20).show() // will print out the first 20 lines
-    #This code will create a temp view of the dataset you used and load the data into a permanent table
-    #inside of Hadoop. this will persist the data and only require this code to run once.
-    #After initialization this code will and creation of output will not me necessary
-    output.createOrReplaceTempView("temp_data")
-    hiveCtx.sql("SET hive.exec.dynamic.partition.mode=nonstrict")
-    hiveCtx.sql("SET hive.enforce.bucketing=false")
-    hiveCtx.sql("SET hive.enforce.sorting=false")
-    #hiveCtx.sql("USE project1_hive_scala")
-    hiveCtx.sql("CREATE TABLE IF NOT EXISTS shark1 (caseNumber STRING, date STRING, year INT, type STRING, country STRING, area STRING, location STRING, activity STRING, name STRING, sex STRING, age INT, injury STRING, fatal STRING, time STRING, species STRING, investigator_or_source STRING, pdf STRING, href_formula STRING, href_ STRING, case_number1 STRING, case_number STRING, original_order INT)")
-    hiveCtx.sql("INSERT INTO shark1 SELECT * FROM temp_data")
-    sharkTable = hiveCtx.sql("SELECT * FROM shark1 limit 10")
-    sharkTable.show()
-    
-    
+   
     
 #Start of program
 def mainMenu():
@@ -68,20 +46,20 @@ def mainMenu():
     choice = input(int("> "))
     
     if (choice == 1):
-        #createAccount()
-        print("1")
+        createAccount()
+        #print("1")
             
     elif(choice == 2):
-        #userLogIn()
-        print("2")
+        userLogIn()
+        #print("2")
 
     elif(choice == 3):
-        #adminLogIn()
-        print("3")
+        adminLogIn()
+        #print("3")
 
     elif(choice == 0):
-        #exitProgram()
-        print("0")
+        exitProgram()
+        #print("0")
             
     elif(( choice != 0 or choice != 1 or choice != 1 or choice or 2 or choice != 3 )):
         print("Not a valid choice. Try again")
@@ -104,31 +82,40 @@ def createAccount():
     if (userPassword == userPassword2):
         print(" Account has been created")
         print("")
+        ## NEED TO CREATE SHARKATTACHDATABASE  DATABASE IN MYSQL ######
+        resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
+        answer = (userName, userPassword, userPassword2)
+        my_cursor.execute(resultSet1,answer)
+        mydb.commit()
         userMenu()
 
     elif (userPassword != userPassword2):
         print(" Passwords do not match, please try again")
         print("")
-        print("Please type your password!!")
-        userPassword = input("> ")
-        print("")
-        print("Please type your retype password!!")
-        userPassword2 = input("> ")
-        print(" Account has been created!!!")
-        print("")
-        userMenu()
+        createAccount()
+        
+        #print("Please type your password!!")
+        #userPassword = input("> ")
+        #print("")
+        #print("Please type your retype password!!")
+        #userPassword2 = input("> ")
+        #print(" Account has been created!!!")
+        #print("")
+        #userMenu()
 
     elif (userPassword == ""):
         print(" Password Cannot Be Blank")
         print("")
-        print("Please type your password!!")
-        userPassword = input("> ")
-        print("")
-        print("Please type your retype password!!")
-        userPassword2 = input("> ")
-        print(" Account has been created!!!")
-        print("")
-        userMenu()
+        createAccount()
+        
+        #print("Please type your password!!")
+        #userPassword = input("> ")
+        #print("")
+        #print("Please type your retype password!!")
+        #userPassword2 = input("> ")
+        #print(" Account has been created!!!")
+        #print("")
+        #userMenu()
     
     #Updating table with userName and password after creating a new account
     #val resultSet2 = statement.executeUpdate("INSERT INTO userAccount (userName, userPassword, userPassword2) VALUES ('"+userName+"', '"+userPassword+"',  '"+userPassword2+"');")
@@ -243,12 +230,10 @@ def userInformationOption():
         print(" Not a valid choice, please try again!!!")
         userChoice()
     
-
-
-
+ 
 # User Menu
 def userMenu():
-    #sharkAttackData()
+    sharkAttackData()
     print(" What type of data would you like to view. Please select below: ")
     print("")
     print(" (1) What is the total number of shark attacks recorded?")
@@ -312,9 +297,94 @@ def userMenu():
         print(" Not a valid choice, please try again!!!")
         userMenu()
         
+
+
+def sharkAttackData():
+    output = hiveCtx.read\
+    .format("csv")\
+    .option("inferSchema", "true")\
+    .option("header", "true")\
+    .load("input/GSAF5 (1_2).csv")
+            
+    #output.limit(20).show() // will print out the first 20 lines
+    #This code will create a temp view of the dataset you used and load the data into a permanent table
+    #inside of Hadoop. this will persist the data and only require this code to run once.
+    #After initialization this code will and creation of output will not me necessary
+    output.createOrReplaceTempView("temp_data")
+    hiveCtx.sql("SET hive.exec.dynamic.partition.mode=nonstrict")
+    hiveCtx.sql("SET hive.enforce.bucketing=false")
+    hiveCtx.sql("SET hive.enforce.sorting=false")
+    #hiveCtx.sql("USE project1_hive_scala")
+    hiveCtx.sql("CREATE TABLE IF NOT EXISTS shark1 (caseNumber STRING, date STRING, year INT, type STRING, country STRING, area STRING, location STRING, activity STRING, name STRING, sex STRING, age INT, injury STRING, fatal STRING, time STRING, species STRING, investigator_or_source STRING, pdf STRING, href_formula STRING, href_ STRING, case_number1 STRING, case_number STRING, original_order INT)")
+    hiveCtx.sql("INSERT INTO shark1 SELECT * FROM temp_data")
+    sharkTable = hiveCtx.sql("SELECT * FROM shark1 limit 10")
+    sharkTable.show()
+
+
+
     
+# Query for total number of shark attacks since certain date
+def totalSharkAttacks():
+    print("Total number of attacks recorded...")
+    result = hiveCtx.sql("SELECT COUNT(year) AS TotalAttacks FROM shark1 WHERE year > 1950")
+    result.show()
+    result.write.csv("results/totalSharkAttacks")
+    #log.write("Executing 'SELECT COUNT(year) FROM shark1 WHERE year > 1950';\n")
 
 
+#Query for what shark is responsible for the most attacks
+def sharkResponsible():
+    print("What Shark is responsible for the most attacks...")
+    result = hiveCtx.sql("SELECT (species) FROM shark1 WHERE species IS NOT NULL GROUP BY species ORDER BY COUNT(*) DESC")
+    result.show()
+    result.write.csv("results/sharkResponsible")
+    #log.write("Executing 'SELECT (species) FROM shark1 GROUP BY species ORDER BY COUNT(*) DESC';\n")
+
+
+# Query for location of most shark attacks
+def locationMostSharkAttacks():
+    print("Location of Most Shark Attack...")
+    result = hiveCtx.sql("SELECT (country) FROM shark1 WHERE country IS NOT NULL GROUP BY country ORDER BY COUNT(*) DESC")
+    result.show()
+    result.write.csv("results/locationMostSharkAttacks")
+    #log.write("Executing 'SELECT (country) FROM shark1 WHERE country IS NOT NULL GROUP BY country ORDER BY COUNT(*) DESC';\n")
+
+
+    
+#STILL NEED TO FIGURE OUT THIS QUERY
+# Query for what time of day do most shark attacks occur
+def timeOfDaySharkAttack():
+    print("Time most shark attacks occur...")
+    #val result = hiveCtx.sql("SELECT COUNT(year) FROM shark1 WHERE year > 999") // STILL NEED TO FIGURE OUT THIS QUERY
+    #val result1 = hiveCtx.sql("CREATE VIEW AvgTimeOfAttacked AS SELECT time, CONVERT(SUBSTRING(time,1,2), UNSIGNED INTEGER) AS timeConvert FROM shark1")
+    result1 = hiveCtx.sql("CREATE VIEW IF NOT EXISTS AvgTimeOfAttacked AS SELECT CAST(regexp_replace(time, 'h00', '') AS int) AS time FROM shark1 WHERE time IS NOT NULL LIMIT 10")
+    result2 = hiveCtx.sql("SELECT AVG(time) FROM AvgTimeOfAttacked WHERE time IS NOT NULL")
+    #result.show()
+    #result.write.csv("results/timeOfDaySharkAttack")
+    result2.show()
+    result2.write.csv("results/timeOfDaySharkAttack")
+    #log.write("Executing 'NEED TO ADD LOG HERE');\n")
+
+#cast(str_column as int)
+
+
+#Query for the number of provoked and unprovoked shark attacks
+def provokedUnprovokedAttacks():
+    print("Number of Provoked and Unprovoked Attacks")
+    result = hiveCtx.sql("SELECT type, Count(type) AS whichTypeMost FROM shark1 WHERE type IS NOT NULL GROUP BY type ORDER BY whichTypeMost DESC")
+    result.show()
+    result.write.csv("results/provokedUnprovokedAttacks")
+    #log.write("Executing 'SELECT typeAttack, Count(typeAttack) AS whichTypeMost FROM shark1 GROUP BY typeAttack ORDER BY whichTypeMost';\n")
+
+
+# Query for average age range of people attacked
+def ageRangePeopleAttacked():
+    print("Average Age of Both Males & Female Attacked")
+    result = hiveCtx.sql("SELECT sex, AVG(age) AS averageAgeAttacked FROM shark1 WHERE age IS NOT NULL AND sex IS NOT NULL GROUP BY sex")
+    result.show()
+    result.write.csv("results/avgAgePeopleAttacked")
+    #result.write.mode(SaveMode.Overwrite).csv("results/avgAgePeopleAttacked")
+    #log.write("Executing 'SELECT sex, AVG(age) AS averageAgeAttacked FROM shark1 GROUP BY sex';\n")
 
 
 #logging in as Admin
@@ -407,6 +477,7 @@ def updateDataset():
 
 #DELETE USER 
 def deleteUser():
+    global userName
     print("")
     print("################################")
     print(" (1) Choose A User To Delete ")
@@ -417,14 +488,14 @@ def deleteUser():
     choice2 = input(int("> "))
      
     if (choice2 == 1):
-        #resultSet4 = statement.executeQuery("SELECT * FROM userAccount")
+        resultSet4 = statement.executeQuery("SELECT * FROM userAccount")
         #log.write("Executing 'SELECT * FROM userAccount';\n")
         print(" Type A User's Name")
-        userName =  scanner.nextLine().trim()
-        #resultSet3 =  statement.executeUpdate("DELETE FROM userAccount WHERE userName = ('"+userName+"');")
+        userName =  input("> ")
+        resultSet3 =  statement.executeUpdate("DELETE FROM userAccount WHERE userName = ('"+userName+"');")
         #log.write("Executing 'DELETE User from database' \n")
         print("User Deleted")
-        #resultSet5 = statement.executeQuery("SELECT * FROM userAccount")
+        resultSet5 = statement.executeQuery("SELECT * FROM userAccount")
         #log.write("Executing 'SELECT * FROM userAccount';\n")
         adminMenu()
 
