@@ -1,8 +1,9 @@
 import pyspark
-from pyspark import SparkContext
+from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 from pyspark import HiveContext
+import pandas as pd
 
 import sys
 import os
@@ -10,16 +11,33 @@ import os
 
 
 #output = ""
+conf = SparkConf()
+sc = SparkContext.getOrCreate(conf=conf)
+
 
 Conf = pyspark.SparkConf()\
-    .setMaster("local")\
-    .setAppName("sharkAnaysis")\
+    .setMaster("local[*]")\
+    .setAppName("sharkAnalysis")\
     .setAll([("spark.driver.memory", "40g"),\
     ("spark.executor.memory", "50g")])
+    
+    
+    
+spark = SparkSession(sc)\
+        .builder \
+        .master("local[*]") \
+        .appName("sharkAnalysis") \
+        .config("spark.some.config.option", "some-value")\
+        .enableHiveSupport()\
+        .getOrCreate()
+        
+          
 
-sc = SparkContext(Conf)
-hiveCtx = HiveContext(sc)
-output = hiveCtx.read
+#sc = SparkContext(spark)
+#hiveCtx = HiveContext(spark)
+#hiveCtx = SparkSession.withHiveSupport(spark)
+sqlContext = SQLContext(spark)  
+#output = hiveCtx.read
 
 #print(sc)
 

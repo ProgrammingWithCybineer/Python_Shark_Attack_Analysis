@@ -7,7 +7,6 @@ from pyspark import HiveContext
 
 
 
-
 #Query for the number of provoked and unprovoked shark attacks
 def provokedUnprovokedAttacks():
     print("Number of Provoked and Unprovoked Attacks")
