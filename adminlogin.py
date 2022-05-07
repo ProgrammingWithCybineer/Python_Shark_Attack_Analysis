@@ -1,3 +1,8 @@
+import database
+import mysql.connector
+
+
+mycursor, commit = database.mysql_connection()
 
 
 
@@ -10,8 +15,12 @@ def adminLogIn():
     print("Type Admin Password")
     adminPassword = input("> ")
     print("")     
-    resultSet2 = statement.executeQuery("SELECT COUNT(*) FROM adminAccount WHERE userAdmin='"+userAdmin+"' AND adminPassword='"+adminPassword+"';")
+    resultSet2 = "SELECT COUNT(*) FROM adminAccount WHERE userAdmin=%s AND adminPassword= %s"
     #log.write("Executing 'SELECT COUNT(*) FROM adminAccount WHERE userAdmin='"+userAdmin+"' AND adminPassword='"+adminPassword+"');\n")
+    answer6 = (userAdmin, adminPassword)
+    mycursor.execute(resultSet2, answer6)
+    commit
+    
     while ( resultSet2.next() ): 
         if (resultSet2.getString(1) == "1"):
             print(" Log In Successful!!")

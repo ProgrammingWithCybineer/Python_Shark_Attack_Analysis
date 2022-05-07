@@ -1,3 +1,8 @@
+import database
+import mysql.connector
+
+mycursor, commit = database.mysql_connection()
+
 
 #DELETE USER 
 def deleteUser():
@@ -12,14 +17,25 @@ def deleteUser():
     choice2 = int(input("> "))
      
     if (choice2 == 1):
-        resultSet4 = statement.executeQuery("SELECT * FROM userAccount")
+        mycursor.execute("SELECT * FROM userAccount")
+        resultSet4 = mycursor.fetchall()
+        for x in resultSet4:
+            print(x)
+        
         #log.write("Executing 'SELECT * FROM userAccount';\n")
         print(" Type A User's Name")
         userName =  input("> ")
-        resultSet3 =  statement.executeUpdate("DELETE FROM userAccount WHERE userName = ('"+userName+"');")
+        #resultSet3 =  statement.executeUpdate("DELETE FROM userAccount WHERE userName = ('"+userName+"');")
+        resultSet5 =  "DELETE FROM userAccount WHERE userName = %s"
         #log.write("Executing 'DELETE User from database' \n")
+        answer6 = (userName)
+        mycursor.execute(resultSet5, answer6)
+        commit
         print("User Deleted")
-        resultSet5 = statement.executeQuery("SELECT * FROM userAccount")
+        mycursor.execute("SELECT * FROM userAccount")
+        resultSet6 = mycursor.fetchall()
+        for x in resultSet6:
+            print(x)
         #log.write("Executing 'SELECT * FROM userAccount';\n")
         #adminMenu()
         import adminmenu 

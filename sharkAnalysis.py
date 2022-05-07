@@ -77,8 +77,6 @@ def mainMenu():
         print("Not a valid choice. Try again")
         mainMenu()
         
-        
-
 mainMenu()
 
 

@@ -1,8 +1,10 @@
-
+import mysql.connector
+import database
+import pandas as pd
 
 
 def sharkAttackData():
-    output = hiveCtx.read\
+    output = pd.read\
     .format("csv")\
     .option("inferSchema", "true")\
     .option("header", "true")\

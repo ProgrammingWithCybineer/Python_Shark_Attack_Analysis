@@ -1,24 +1,13 @@
 import mysql.connector
-from database import DB
+import database
 
+mycursor, commit = database.mysql_connection()
 
-
-mydb = mysql.connector.connect(
-host = "localhost",
-user = "root",
-passwd = "######################",#### REMOVE BEFORE COMMITING CODE
-database = "Shark_Attack_Login",
-)
-#print(mydb)
-
-
-# Create Cursor Instance
-my_cursor = mydb.cursor()
 
 
 #Create User Account    
 def createAccount():    
-    #global userName
+    
     print("")
     print("Please type your username")
     userName = input("> ")
@@ -28,16 +17,20 @@ def createAccount():
     print("")
     print("Please type your retype password")
     userPassword2 = input("> ")
+    
     if (userPassword == userPassword2):
         print(" Account has been created")
         print("")
-        ## NEED TO CREATE SHARKATTACHDATABASE  DATABASE IN MYSQL ######
-        resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
+        resultSet12 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
         answer = (userName, userPassword, userPassword2)
-        my_cursor.execute(resultSet1,answer)
-        mydb.commit()
-        #userMenu()
-        #DB().insert_new_user_into_database()
+        mycursor.execute(resultSet12,answer)
+        commit
+        
+        
+        #answer = (userName, userPassword, userPassword2)
+        #mycursor.execute(resultSet1,answer)
+        #mydb.commit() 
+        
         import usermenu
 
     elif (userPassword != userPassword2):
@@ -52,18 +45,6 @@ def createAccount():
         print("")
         createAccount()
         
-        #print("Please type your password!!")
-        #userPassword = input("> ")
-        #print("")
-        #print("Please type your retype password!!")
-        #userPassword2 = input("> ")
-        #print(" Account has been created!!!")
-        #print("")
-        #userMenu()
-    
-    #Updating table with userName and password after creating a new account
-    #val resultSet2 = statement.executeUpdate("INSERT INTO userAccount (userName, userPassword, userPassword2) VALUES ('"+userName+"', '"+userPassword+"',  '"+userPassword2+"');")
-    #log.write("Executing 'INSERT INTO userAccount (userName, userPassword, userPassword2) VALUES ('"+userName+"', '"+userPassword+"',  '"+userPassword2+"');\n")
-
-
+        
+              
 createAccount()
