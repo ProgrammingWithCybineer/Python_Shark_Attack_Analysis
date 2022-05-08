@@ -1,7 +1,7 @@
 import mysql.connector
 import database
 
-mycursor, commit = database.mysql_connection()
+#mycursor, commit = database.mysql_connection()
 
 
 
@@ -21,10 +21,10 @@ def createAccount():
     if (userPassword == userPassword2):
         print(" Account has been created")
         print("")
-        resultSet12 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
-        answer = (userName, userPassword, userPassword2)
-        mycursor.execute(resultSet12,answer)
-        commit
+        #resultSet12 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
+        #answer = (userName, userPassword, userPassword2)
+        #mycursor.execute(resultSet12,answer)
+        #commit
         
         
         #answer = (userName, userPassword, userPassword2)

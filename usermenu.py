@@ -21,7 +21,7 @@ def userMenu():
     print("")
     print(" (0) To exit the program")
     print("")
-    choice3 =  int(input("> "))
+    choice3 = int(input("> "))
      
     if (choice3 == 1):
         print(" What is the total number of shark attacks recorded?")

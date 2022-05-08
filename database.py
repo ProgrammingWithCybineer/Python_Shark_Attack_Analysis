@@ -1,4 +1,77 @@
 import mysql.connector
+import pyspark
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SparkSession
+from pyspark.sql import SQLContext
+from pyspark.sql import HiveContext
+import sqlalchemy as sa
+import pandas as pd
+import database
+import mysql.connector
+import sys
+import os
+
+
+
+
+def mysql_connection():
+    mydb = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    passwd = "#########################",#### REMOVE BEFORE COMMITING CODE
+    database = "Shark_Attack_Login",
+    )
+    #print(mydb)
+
+
+    # Create Cursor Instance
+    
+    mycursor = mydb.cursor()
+    commit = mydb.commit()
+    #mycursor.close()
+    return mycursor, commit
+
+
+
+def hive_context():
+    
+    conf = SparkConf()
+    sc = SparkContext.getOrCreate(conf=conf)
+    hc = HiveContext(sc)
+    return hc, sc, 
+
+
+
+
+
+def spark_session(): 
+    conf = SparkConf()    
+    sc = SparkContext.getOrCreate(conf=conf)
+    sqlContext = SQLContext(spark)
+        
+    conf = pyspark.SparkConf()\
+        .setMaster("local[*]")\
+        .setAppName("sharkAnalysis")\
+        .setAll([("spark.driver.memory", "1g"),\
+        ("spark.executor.memory", "1g")])
+        
+        
+    spark = SparkSession(sc)\
+        .builder \
+        .master("local[*]") \
+        .appName("sharkAnalysis") \
+        .config("spark.some.config.option", "some-value")\
+        .enableHiveSupport()\
+        .getOrCreate()   
+    
+    
+    return conf, spark, sqlContext, sc, conf
+    
+    
+    
+    
+    
+    
 
 
 # Create Cursor Instance
@@ -58,21 +131,7 @@ import mysql.connector
         
         
 
-def mysql_connection():
-    mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "##########################",#### REMOVE BEFORE COMMITING CODE
-    database = "Shark_Attack_Login",
-    )
-    #print(mydb)
 
-
-    # Create Cursor Instance
-    mycursor = mydb.cursor()
-    commit = mydb.commit()
-    mycursor.close()
-    return mycursor, commit
     
         
         
