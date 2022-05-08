@@ -17,13 +17,14 @@ def sharkAttackData():
     #.option("inferSchema", "true")\
     #.option("header", "true")\
     #.load("input/GSAF5 (1_2).csv")
-    
+    hc.createOrReplaceTempView("temp_data")
                 
     #output.limit(20).show() // will print out the first 20 lines
     #This code will create a temp view of the dataset you used and load the data into a permanent table
     #inside of Hadoop. this will persist the data and only require this code to run once.
     #After initialization this code will and creation of output will not me necessary
-    hc.createOrReplaceTempView("temp_data")
+    #hc.createOrReplaceTempView("temp_data")
+    
     hc.sql("SET hive.exec.dynamic.partition.mode=nonstrict")
     hc.sql("SET hive.enforce.bucketing=false")
     hc.sql("SET hive.enforce.sorting=false")

@@ -18,7 +18,7 @@ def mysql_connection():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "#########################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
     database = "Shark_Attack_Login",
     )
     #print(mydb)
