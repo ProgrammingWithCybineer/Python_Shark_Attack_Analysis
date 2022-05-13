@@ -18,7 +18,7 @@ def mysql_connection():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#####################",#### REMOVE BEFORE COMMITING CODE
     database = "Shark_Attack_Login",
     )
     #print(mydb)
@@ -45,10 +45,7 @@ def hive_context():
 
 
 def spark_session(): 
-    conf = SparkConf()    
-    sc = SparkContext.getOrCreate(conf=conf)
-    sqlContext = SQLContext(spark)
-        
+    global sc    
     conf = pyspark.SparkConf()\
         .setMaster("local[*]")\
         .setAppName("sharkAnalysis")\
@@ -59,10 +56,16 @@ def spark_session():
     spark = SparkSession(sc)\
         .builder \
         .master("local[*]") \
-        .appName("sharkAnalysis") \
+        .appName("Python_Shark_Attack_Analysis") \
         .config("spark.some.config.option", "some-value")\
         .enableHiveSupport()\
-        .getOrCreate()   
+        .getOrCreate()
+    spark.conf.set("spark.sql.execution.arrow.enabled", "true")
+        
+        
+    conf = SparkConf()    
+    sc = SparkContext.getOrCreate(conf=conf)
+    sqlContext = SQLContext(spark)   
     
     
     return conf, spark, sqlContext, sc, conf
