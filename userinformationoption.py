@@ -1,6 +1,11 @@
+from multiprocessing.connection import answer_challenge
+import database
+import mysql.connector
 
 
+mycursor, commit = database.mysql_connection()
 
+#Update/ change User name and/or userpassword
 def userInformationOption():
     global userName
     global userNameUpdate
@@ -22,12 +27,17 @@ def userInformationOption():
     if (choice2 == 1):
         print(" Type A New User Name")
         userNameUpdate = input("> ")
-        #resultSet2_1 = statement.executeUpdate("UPDATE userAccount SET userName = ('"+userNameUpdate+"') WHERE userName = ('"+userName+"');")
+        resultSet2_1 = ("UPDATE userAccount SET userName = %s WHERE userName = %s")
+        answer2_1 = (userNameUpdate, userName)
+        mycursor.execute(resultSet2_1, answer2_1)
+        commit
         #log.write("UPDATE userAccount SET userName = ('"+userNameUpdate+"') WHERE username = ('"+userName+"') \n")
         print("User Name Updated")
         #userChoice()
         import userchoice
+        
 
+## STILL WORKING ON THIS SECTION ####
     elif (choice2 == 2):
         print("Type User Name")
         userName = input("> ")

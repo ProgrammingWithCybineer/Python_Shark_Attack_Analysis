@@ -31,17 +31,12 @@ def mysql_connection_Login():
 
 
 
-
-
-
-
 def hive_context():
     
     conf = SparkConf()
     sc = SparkContext.getOrCreate(conf=conf)
     hc = HiveContext(sc)
     return hc, sc, 
-
 
 
 
@@ -80,7 +75,7 @@ def mysql_connection_SharkDatabase():
         host = "localhost",
         user = "root",
         passwd = "############################",#### REMOVE BEFORE COMMITING CODE
-        database = "new_shark_attack_test_data",
+        database = "Shark_Attack_Login",
     )    
     
     #mydb = mysql.connector.connect

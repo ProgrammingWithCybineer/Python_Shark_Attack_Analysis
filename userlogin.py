@@ -1,5 +1,9 @@
+import database
+import mysql.connector
 
 
+
+mycursor, commit = database.mysql_connection()
 
 #User logging in
 def userLogIn():
@@ -8,8 +12,11 @@ def userLogIn():
     print("")
     print(" Please type A Password")
     userPassword = input("> ")
-    resultSet = statement.executeQuery("SELECT COUNT(*) FROM userAccount WHERE userName='"+userName+"' AND userPassword='"+userPassword+"';")
+    resultSet = ("SELECT COUNT(*) FROM userAccount WHERE userName=%s AND userPassword=%s")
+    mycursor.execute(userName, userPassword)
+    commit
     #log.write("Executing 'SELECT COUNT(*) FROM userAccount WHERE userName='"+userName+"' AND userPassword='"+userPassword+"');\n")
+        
     while ( resultSet.next()):
         if (resultSet.getString(1) == "1"):
             print("You Have Logged In Successfully")
