@@ -1,40 +1,17 @@
 import mysql.connector
+from mysql.connector import Error
 import database
 import pandas as pd
 import numpy as np
+import sys
+import os
+from database import DB, query_sharkdatabase
 
 
-hc, sc = database.hive_context()
 
-conf, spark, sqlContext, sc, conf = database.spark_session()  
+# This will run shark attack data and create the database with MySQL
+DB().sharkAttackData()
 
 
-def sharkAttackData():    
-    #hc = pd.read_csv("input/GSAF5.csv") 
-    shark = pd.read_csv\
-    .format("csv")\
-    .option("inferSchema", "true")\
-    .option("header", "true")\
-    .load("input/GSAF5.csv")
-    #hc.createOrReplaceTempView("temp_data")
-    shark.createDataFrame("temp_data")
-                
-    #output.limit(20).show() // will print out the first 20 lines
-    #This code will create a temp view of the dataset you used and load the data into a permanent table
-    #inside of Hadoop. this will persist the data and only require this code to run once.
-    #After initialization this code will and creation of output will not me necessary
-    #hc.createOrReplaceTempView("temp_data")
-    
-    shark.sql("SET hive.exec.dynamic.partition.mode=nonstrict")
-    shark.sql("SET hive.enforce.bucketing=false")
-    shark.sql("SET hive.enforce.sorting=false")
-    
-    shark.sql("CREATE TABLE IF NOT EXISTS shark1 (caseNumber STRING, date STRING, year INT, type STRING, country STRING, area STRING, location STRING, activity STRING, name STRING, sex STRING, age INT, injury STRING, fatal STRING, time STRING, species STRING, investigator_or_source STRING, pdf STRING, href_formula STRING, href_ STRING, case_number1 STRING, case_number STRING, original_order INT)")
-    shark.sql("INSERT INTO shark1 SELECT * FROM temp_data")
-    sharkTable = shark.sql("SELECT * FROM shark1 limit 10")
-    sharkTable.show()
-    
-    
-sharkAttackData()
-    
-
+#This will show first 100 rows from new table created in database 
+query_sharkdatabase()
