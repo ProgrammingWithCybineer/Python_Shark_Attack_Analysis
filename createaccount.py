@@ -1,13 +1,34 @@
 import mysql.connector
-import database
+import pyspark
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SparkSession
+from pyspark.sql import SQLContext
+from pyspark.sql import HiveContext
+import sqlalchemy as sa
+import pandas as pd
+#import database
+import mysql.connector
+import sys
+import os
+from database import DB
 
-#mycursor, commit = database.mysql_connection()
+
+#userName = ""
+#userPassword = ""
+#userPassword2 = ""
+       
+
+DB().createAccountConnection()  
 
 
-
-#Create User Account    
-def createAccount():    
-    
+#mycursor = mydb.cursor()
+#commit = mydb.commit()
+def createUserAccount():
+    global userName
+    global userPassword 
+    global userPassword2
+      
+         
     print("")
     print("Please type your username")
     userName = input("> ")
@@ -18,33 +39,34 @@ def createAccount():
     print("Please type your retype password")
     userPassword2 = input("> ")
     
-    if (userPassword == userPassword2):
-        print(" Account has been created")
-        print("")
-        #resultSet12 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
-        #answer = (userName, userPassword, userPassword2)
-        #mycursor.execute(resultSet12,answer)
-        #commit
-        
-        
-        #answer = (userName, userPassword, userPassword2)
-        #mycursor.execute(resultSet1,answer)
-        #mydb.commit() 
-        
-        import usermenu
+    
+    DB().addUserToDatabase()
+    return userName, userPassword, userPassword2    
+  
 
-    elif (userPassword != userPassword2):
-        print(" Passwords do not match, please try again")
-        print("")
-        createAccount()
-        
-        
 
-    elif (userPassword is None):
-        print(" Password Cannot Be Blank")
-        print("")
-        createAccount()
+#    if (userPassword == userPassword2):
         
+#        print(" Account has been created")
+#        print("")
+#        resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
+#        answer = (userName, userPassword, userPassword2)
+#        mycursor.execute(resultSet1, answer)
+#        mydb.commit()
+        
+#        import usermenu
+
+#    elif (userPassword != userPassword2):
+#        print(" Passwords do not match, please try again")
+#        print("")
+#       createAccount()
+
+
+#    elif (userPassword is None):
+#        print(" Password Cannot Be Blank")
+#        print("")
+#        createAccount()
+    
         
               
-createAccount()
+createUserAccount()

@@ -6,28 +6,35 @@ from pyspark.sql import SQLContext
 from pyspark.sql import HiveContext
 import sqlalchemy as sa
 import pandas as pd
-import database
+#import database
 import mysql.connector
 import sys
 import os
 
+from createaccount import createUserAccount
+#from createaccount import userName, userPassword, userPassword2
 
+
+userName, userPassword, userPassword2 = createUserAccount()
 
 #connection for login database
 def mysql_connection_Login():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "############################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
     database = "Shark_Attack_Login",
     )
     #print(mydb)
 
-
+    
     # Create Cursor Instance
+    #mydb = mysql.connector.connect
     mycursor = mydb.cursor()
     commit = mydb.commit()
-    return mycursor, commit
+    #mycursor.close()
+    return mycursor, commit, mydb
+    
 
 
 
@@ -64,8 +71,7 @@ def spark_session():
     conf = SparkConf()    
     sc = SparkContext.getOrCreate(conf=conf)
     sqlContext = SQLContext(spark)   
-    
-    
+        
     return conf, spark, sqlContext, sc, conf
     
     
@@ -74,7 +80,7 @@ def mysql_connection_SharkDatabase():
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "############################",#### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
     )    
     
@@ -88,7 +94,7 @@ def query_sharkdatabase():
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "############################",#### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
     )
     
@@ -107,15 +113,15 @@ def query_sharkdatabase():
    
 
 class DB:
-    # def __del__(self):
-        #self.mydb.close()
+    def __del__(self):
+        self.mydb.close()
         
 
     def __init__(self):
         self.mydb = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            passwd = "############################",#### REMOVE BEFORE COMMITING CODE
+            passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
             #database = "Shark_Attack_Analysis",
             database = "Shark_Attack_Login",            
         )
@@ -135,7 +141,9 @@ class DB:
         
         #mycursor.close()
 
-    # sharkAttackData()
+
+
+   # sharkAttackData()
     def sharkAttackData(self):
         sharkdata = pd.read_csv('input/GSAF5_2000.csv',  keep_default_na=False, index_col=False, delimiter = ',')
         sharkdata.head()
@@ -145,6 +153,7 @@ class DB:
             sharkcursor = self.mydb.cursor() 
             sharkcursor.execute("select database();")
             record = sharkcursor.fetchone()
+ 
             
             print("You're connected to database: ", record)
             sharkcursor.execute("DROP TABLE IF EXISTS SharkAttackDataTable;")
@@ -157,32 +166,67 @@ class DB:
                 
             #loop through the data frame
             for i,row in sharkdata.iterrows():
-                #here %S means string values 
-                sql = "INSERT INTO shark_attack_login.SharkAttackdataTable VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                sharkcursor.execute(sql, tuple(row))
-                print("Record inserted")
+               #here %S means string values 
+               sql = "INSERT INTO shark_attack_login.SharkAttackdataTable VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+               sharkcursor.execute(sql, tuple(row))
+               print("Record inserted")
                 
                 # the connection is not auto committed by default, so we must commit to save our changes
-                self.mydb.commit()
-        mycursor.close()
+            self.mydb.commit()
+            mycursor.close()
         
         
     
     # def do_something_connection(self):
-    # def connect_to_mysql(self):
+    def createAccountConnection(self):
         #mycursor = self.mydb.cursor()
-        #mydb = mysql.connector.connect(
-        #host = "localhost",
-        #user = "root",
-        #passwd = "#################",#### REMOVE BEFORE COMMITING CODE
-        #database = "Shark_Attack_Login",
-        #)
-        #print(mydb)
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+        database = "Shark_Attack_Login",
+        )
+        print("Connected to database. Account can now be created.")
+       
+        mycursor = self.mydb.cursor()
+        #commit = self.mydb.commit()
+        #self.mydb.commit()        
+        #self.mydb.execute()
+        
+    def addUserToDatabase(self):    
+        #userName = ""
+        #userPassword = ""
+        #userPassword2 = ""
+       
+        
+        if self.mydb.is_connected() and (userPassword == userPassword2):
+            mycursor = self.mydb.cursor()
+            print(" Account has been created")
+            print("")
+            resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
+            answer = (userName, userPassword, userPassword2)
+            mycursor.execute(resultSet1, answer)
+            self.mydb.commit()
+            
+            import usermenu
+
+        elif self.mydb.is_connected() and (userPassword != userPassword2):
+        #elif self.mydb.is_connected() and (userPassword != userPassword2):    
+            print(" Passwords do not match, please try again")
+            print("")
+            
+            import createaccount
 
 
-        # Create Cursor Instance
-        #mycursor = mydb.cursor()
-        #mycursor.close()
+        elif self.mydb.is_connected() and (userPassword is None):
+            print(" Password Cannot Be Blank")
+            print("")
+            import createaccount
+    
+              
+        return mycursor
+        
+        
         
         
         
