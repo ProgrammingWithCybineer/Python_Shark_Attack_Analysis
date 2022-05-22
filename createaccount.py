@@ -13,17 +13,8 @@ import os
 from database import DB
 
 
-#userName = ""
-#userPassword = ""
-#userPassword2 = ""
-       
-
-DB().createAccountConnection()  
-
-
-#mycursor = mydb.cursor()
-#commit = mydb.commit()
 def createUserAccount():
+    
     global userName
     global userPassword 
     global userPassword2
@@ -38,35 +29,13 @@ def createUserAccount():
     print("")
     print("Please type your retype password")
     userPassword2 = input("> ")
+        
     
     
+    
+    DB().createAccountConnection()  
     DB().addUserToDatabase()
-    return userName, userPassword, userPassword2    
-  
 
-
-#    if (userPassword == userPassword2):
-        
-#        print(" Account has been created")
-#        print("")
-#        resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
-#        answer = (userName, userPassword, userPassword2)
-#        mycursor.execute(resultSet1, answer)
-#        mydb.commit()
-        
-#        import usermenu
-
-#    elif (userPassword != userPassword2):
-#        print(" Passwords do not match, please try again")
-#        print("")
-#       createAccount()
-
-
-#    elif (userPassword is None):
-#        print(" Password Cannot Be Blank")
-#        print("")
-#        createAccount()
-    
         
               
 createUserAccount()

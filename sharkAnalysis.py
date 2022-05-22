@@ -5,15 +5,14 @@ from pyspark.sql import SQLContext
 import sqlalchemy as sa
 import pandas as pd
 import database
+from database import DB
 import mysql.connector
 import sys
 import os
 
 
-mycursor, commit = database.mysql_connection()
-        
-conf, spark, sqlContext, sc, conf = database.spark_session()          
-
+#mycursor, commit = database.mysql_connection()
+#conf, spark, sqlContext, sc, conf = database.spark_session()          
 #sc = SparkContext(spark)
 
  
@@ -31,24 +30,19 @@ def mainMenu():
     choice = int(input("> "))
     
     if (choice == 1):
-        #createAccount()
         import createaccount
-        #print("1")
             
     elif(choice == 2):
-        #userLogIn()
         import userlogin
-        #print("2")
+        
 
     elif(choice == 3):
-        #adminLogIn()
         import adminlogin
-        #print("3")
+        
 
     elif(choice == 0):
-        #exitProgram()
         import exitprogram
-        #print("0")
+        
             
     elif(( choice != 0 or choice != 1 or choice != 1 or choice or 2 or choice != 3 )):
         print("Not a valid choice. Try again")

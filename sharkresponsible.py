@@ -3,15 +3,15 @@ import database
 import pandas as pd
 
 
-mycursor, commit = database.mysql_connection()
+#mycursor, commit = database.mysql_connection()
 
 
 
 #Query for what shark is responsible for the most attacks
 def sharkResponsible():
     print("What Shark is responsible for the most attacks...")
-    sharkResponsible = pd.read_csv("input\GSAF5.csv")
-    sharkResponsible.query = "SELECT (species) FROM GSAF5 WHERE species IS NOT NULL GROUP BY species ORDER BY COUNT(*) DESC"
+    sharkResponsible = pd.read_csv("input\GSAF5_2000.csv")
+    sharkResponsible.query = "SELECT (species) FROM SharkAttackDataTable WHERE species IS NOT NULL GROUP BY species ORDER BY COUNT(*) DESC"
     #sharkResponsible.head()
     print(sharkResponsible)
     

@@ -15,6 +15,9 @@ def timeOfDaySharkAttack():
     timeOfDaySharkAttack1.query = "CREATE VIEW IF NOT EXISTS GSAF5 AS SELECT CAST(regexp_replace(time, 'h00', '') AS int) AS time FROM GSAF5 WHERE time IS NOT NULL LIMIT 10"
     timeOfDaySharkAttack1.query = "SELECT AVG(time) FROM GSAF5 WHERE time IS NOT NULL"
     
+    #Date Cleanup: Date and Time
+    #pd.to_datetime(timeOfDaySharkAttack1).iloc[:100]
+    #pd.to_datetime(timeOfDaySharkAttack1).dt.strftime("%Y-%m-%d %H:%M:S")
     #timeOfDaySharkAttack1.head()
     print(timeOfDaySharkAttack1)
     
