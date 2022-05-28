@@ -1,4 +1,4 @@
-
+from database import DB
 
 
    
@@ -19,7 +19,8 @@ def userChoice():
     if (choice2 == 1):
         print(" User Query Menu...")
         #userMenu()
-        import usermenu
+        DB().isTableCreated()
+        #import usermenu
 
         
     elif (choice2 == 2): 

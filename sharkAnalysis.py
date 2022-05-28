@@ -5,7 +5,6 @@ from pyspark.sql import SQLContext
 import sqlalchemy as sa
 import pandas as pd
 import database
-from database import DB
 import mysql.connector
 import sys
 import os
@@ -15,11 +14,25 @@ import os
 #conf, spark, sqlContext, sc, conf = database.spark_session()          
 #sc = SparkContext(spark)
 
- 
-
     
 #Start of program
 def mainMenu():
+    print("")
+    print("                                                                                                         ")
+    print("                                  *                                                                      ") 
+    print("                                *   *                                                                    ")
+    print("                               *     *                                   *                               ")
+    print("                              *       *                                 * *                              ")
+    print("                             *         *                               *   *                             ")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~*~~~~~~~~~~~*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*~~~~~*~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("                             WELCOME TO THE SHARK ATTACK ANALYSIS DATABASE                               ")
+    print("                                                                                                         ")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("")        
+    print("")
+    print("")
     print("###################################")
     print("Please choose from a Number the menu below: ")
     print("(1) Create Account ")

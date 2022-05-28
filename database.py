@@ -24,7 +24,7 @@ def mysql_connection_Login():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#########################",#### REMOVE BEFORE COMMITING CODE
     database = "Shark_Attack_Login",
     )
     #print(mydb)
@@ -35,7 +35,7 @@ def mysql_connection_Login():
     mycursor = mydb.cursor()
     commit = mydb.commit()
     #mycursor.close()
-    return mycursor, commit, mydb
+    return mycursor, commit
     
 
 
@@ -92,17 +92,7 @@ def mysql_connection_SharkDatabase():
     return sharkcursor, sharkcommit, mydb
     
 
-def query_sharkdatabase():
-    mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
-        database = "Shark_Attack_Login",
-    )
-    
-    
-    my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", mydb)
-    print(my_data)
+
     
        
 
@@ -115,7 +105,7 @@ class DB:
         self.mydb = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+            passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
             #database = "Shark_Attack_Analysis",
             database = "Shark_Attack_Login",            
         )
@@ -135,9 +125,34 @@ class DB:
         
         #mycursor.close()
 
+        
+    
+    # Checks To See If **SharkAttackDataTable**  is created
+    def isTableCreated(self):
+        if self.mydb.is_connected():
+            mycursor = self.mydb.cursor()
+            query = "SELECT *  FROM information_schema WHERE TABLE_NAME = %s"
+            tableName = ("SharkAttackDataTable")
+            #query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
+            #tableName = ("Shark_Attack_Login","SharkAttackDataTable")
+            answer = (query, tableName)
+            mycursor.execute(answer)
+            results = mycursor.fetchall()
+            mycursor.close()
 
+            print('Checking For Table:', results) # Returned as a list of tuples
 
-   # sharkAttackData()
+            results_list = [item[0] for item in results] # Conversion to list of str
+
+            if tableName in results_list:
+                import usermenu
+            else:
+                import sharkattackdata 
+            
+            return mycursor
+            
+
+    # Creates Shark attack database table in MySQL
     def sharkAttackData(self):
         sharkdata = pd.read_csv('input/GSAF5_2000.csv',  keep_default_na=False, index_col=False, delimiter = ',')
         sharkdata.head()
@@ -171,13 +186,26 @@ class DB:
         
         
     
+    def query_sharkdatabase(self):
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
+        database = "Shark_Attack_Login",
+        )
+    
+        my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", mydb)
+        print(my_data)
+    
+    
+    
     # Connection to allow you to create an account
     def createAccountConnection(self):
         #mycursor = self.mydb.cursor()
         mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. Account can now be created.")
@@ -200,7 +228,7 @@ class DB:
                 answer = (userName, userPassword, userPassword2)
                 mycursor.execute(resultSet1, answer)
                 self.mydb.commit()
-                import usermenu
+                import userchoice
 
             elif (userPassword != userPassword2):
                 
@@ -224,7 +252,7 @@ class DB:
         mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. Please Try and login.")
@@ -260,8 +288,21 @@ class DB:
         
         
         
-        
-        
+    # Connection to run all queries in the program    
+    def user_query_connection(self):
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
+        database = "Shark_Attack_Login",
+        )
+        print("Connected to database. You can now run your query")
+        global mycursor
+       
+        mycursor = self.mydb.cursor()
+        commit = self.mydb.commit()  
+             
+        return mycursor, commit    
 
 
     

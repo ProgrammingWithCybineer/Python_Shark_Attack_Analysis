@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import sys
 import os
-from database import DB, query_sharkdatabase
+from database import DB
 
 
 
@@ -14,4 +14,4 @@ DB().sharkAttackData()
 
 
 #This will show first 100 rows from new table created in database 
-query_sharkdatabase()
+DB().query_sharkdatabase()
