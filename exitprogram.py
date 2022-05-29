@@ -2,6 +2,7 @@
 
 #Exit program
 def exitProgram():
+    
     print("")
     print("                                                                                                         ")
     print("                                  *                                                                      ") 
@@ -18,6 +19,7 @@ def exitProgram():
     print("")        
     print("")
     print("")
+        
 shark = False
 
 

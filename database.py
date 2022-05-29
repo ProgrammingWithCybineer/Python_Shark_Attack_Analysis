@@ -1,3 +1,4 @@
+from colorama import Cursor
 import mysql.connector
 import pyspark
 from pyspark import SparkContext, SparkConf
@@ -10,32 +11,28 @@ import pandas as pd
 import mysql.connector
 import sys
 import os
-import ast
-
-
-#from createaccount import createUserAccount
-#from createaccount import userName, userPassword, userPassword2
+#import ast
 
 
 
 
 #connection for login database
-def mysql_connection_Login():
+def mysql_connection_admin_login():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
     passwd = "#########################",#### REMOVE BEFORE COMMITING CODE
-    database = "Shark_Attack_Login",
+    database = "Shark_Attack_login",
     )
     #print(mydb)
-
+   
     
     # Create Cursor Instance
     #mydb = mysql.connector.connect
     mycursor = mydb.cursor()
     commit = mydb.commit()
     #mycursor.close()
-    return mycursor, commit
+    #return mycursor, commit
     
 
 
@@ -103,16 +100,25 @@ class DB:
 
     def __init__(self):
         self.mydb = mysql.connector.connect(
-            host = "localhost",
-            user = "root",
-            passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
-            #database = "Shark_Attack_Analysis",
-            database = "Shark_Attack_Login",            
+        host = "localhost",
+        user = "root",
+        passwd = "###################", #### REMOVE BEFORE COMMITING CODE
+        database = "Shark_Attack_Login",            
         )
         print("Started database connection")
         
 
-
+    
+    def connectToDatabase(self):
+        self.mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "###################", #### REMOVE BEFORE COMMITING CODE
+        database = "Shark_Attack_Login",            
+        )
+        print("You are now connected to the database!!")
+        
+        
     #this will insert into database newly created user
     # def insert_new_user_into_database(self):
         #mycursor = self.mydb.cursor()
@@ -154,7 +160,7 @@ class DB:
 
     # Creates Shark attack database table in MySQL
     def sharkAttackData(self):
-        sharkdata = pd.read_csv('input/GSAF5_2000.csv',  keep_default_na=False, index_col=False, delimiter = ',')
+        sharkdata = pd.read_csv('input/GSAF51.csv',  keep_default_na=False, index_col=False, delimiter = ',')
         sharkdata.head()
         mycursor = self.mydb.cursor()
         
@@ -187,33 +193,11 @@ class DB:
         
     
     def query_sharkdatabase(self):
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
-        database = "Shark_Attack_Login",
-        )
+        if self.mydb.is_connected():
+            my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", mydb)
+            print(my_data)
     
-        my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", mydb)
-        print(my_data)
-    
-    
-    
-    # Connection to allow you to create an account
-    def createAccountConnection(self):
-        #mycursor = self.mydb.cursor()
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
-        database = "Shark_Attack_Login",
-        )
-        print("Connected to database. Account can now be created.")
-       
-        mycursor = self.mydb.cursor()
-        return mycursor
-    
-        
+   
         
     # Add users information to database
     def addUserToDatabase(self):
@@ -246,23 +230,7 @@ class DB:
         
         
         
-    # Connection To MySQL database for userLogin
-    def userLoginDatabaseConnection(self):
-        #mycursor = self.mydb.cursor()
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
-        database = "Shark_Attack_Login",
-        )
-        print("Connected to database. Please Try and login.")
-       
-        mycursor = self.mydb.cursor()
-               
-        return mycursor      
-        
-    
-    # Verifies Users Name and Password
+    # Verify Users Name and Password
     def verifyUserLogin(self):
         from userlogin import userName, userPassword
         
@@ -287,6 +255,34 @@ class DB:
             
         
         
+    #Verify Admin name and Password
+    def logInAsAdmin(self):
+        from adminlogin import adminName, adminPassword        
+        if self.mydb.is_connected():
+            
+            mycursor = self.mydb.cursor()
+            resultSet2 = "SELECT * FROM adminaccount WHERE EXISTS (SELECT * FROM adminaccount WHERE adminName=%s AND adminPassword=%s)"
+            answer2 = (adminName, adminPassword)
+            mycursor.execute(resultSet2, answer2)
+            rows=mycursor.fetchone()
+            for row in rows:
+                
+                if (row == 1):
+                    print("You Have Logged In Successfully")
+                    print("")
+                    import adminmenu
+                    
+                elif(row != 1):
+                    print("Admin name/password combo not found. Try again!")
+                    print("")
+                    import adminlogin
+                    
+                self.mydb.close()
+            
+
+
+
+
         
     # Connection to run all queries in the program    
     def user_query_connection(self):

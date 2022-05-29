@@ -9,7 +9,7 @@ from database import DB
 
 #User logging in
 def userLogIn():
-    DB().userLoginDatabaseConnection()
+    DB().connectToDatabase()  
     global userName
     global userPassword    
     

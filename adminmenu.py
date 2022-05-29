@@ -14,19 +14,17 @@ def adminMenu():
     choice4 =  int(input("> "))
     
     if (choice4 == 1):
-        print(" choice 1")
-        #updateDataset()
+        print(" Update Dataset Menu Loading")
         import updatedataset                            
     
     elif (choice4 == 2) :
-        print(" choice 2.")
-        #deleteUser()
+        print(" Delete User Menu Loading")
         import deleteuser
     
     elif (choice4 == 3): 
-        print(" choice 3.")
-        #exitProgram()
+        print(" Exiting Program")
         import exitprogram
+        
     
     elif (( choice4 != 1 or choice4 != 2 or choice4 != 3)):
         print(" Not a valid choice, please try again!!!")

@@ -1,12 +1,9 @@
-import mysql.connector
 import pyspark
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 from pyspark.sql import HiveContext
-import sqlalchemy as sa
 import pandas as pd
-#import database
 import mysql.connector
 import sys
 import os
@@ -33,7 +30,7 @@ def createUserAccount():
     
     
     
-    DB().createAccountConnection()  
+    DB().connectToDatabase()  
     DB().addUserToDatabase()
 
         

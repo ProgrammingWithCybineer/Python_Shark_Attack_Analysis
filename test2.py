@@ -6,7 +6,7 @@ import os
 
 import pandas as pd
 
-sharkdata = pd.read_csv('input/GSAF5_2000.csv', keep_default_na=False, index_col=False, delimiter = ',')
+sharkdata = pd.read_csv('input/GSAF51.csv', keep_default_na=False, index_col=False, delimiter = ',')
 sharkdata.head()
 
 

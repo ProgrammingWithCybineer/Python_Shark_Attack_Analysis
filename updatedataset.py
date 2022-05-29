@@ -17,24 +17,19 @@ def updateDataset():
      
     if (choice3 == 1):
         print(" Updating Data on file ....")
-        #sharkAttackData()
         import sharkattackdata                          
     
     elif (choice3 == 2):
-        #adminMenu()
+        print("Loading Admin Menu...")
         import adminmenu
     
     elif (choice3 == 3): 
         print("Exiting Program.....")
-        #exitProgram()
         import exitprogram
 
     elif (( choice3 != 1 or choice3 != 2 or choice3 !=3 )):
         print(" Not a valid choice, please try again!!!")
-        #adminMenu()
         import adminmenu
-        
-        
 
         
 updateDataset()

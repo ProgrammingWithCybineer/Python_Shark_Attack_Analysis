@@ -1,35 +1,26 @@
-import database
+import pandas as pd
 import mysql.connector
-
-
-mycursor, commit = database.mysql_connection()
+import sys
+import os
+from database import DB
 
 
 
 #logging in as Admin
 def adminLogIn():
-    #val statement2 = connection.createStatement()
+    global adminName
+    global adminPassword
+   
+    DB().connectToDatabase()
+       
     print("Type Admin UserName")
-    userAdmin = input("> ")
+    adminName = input("> ")
     print("")
     print("Type Admin Password")
     adminPassword = input("> ")
-    print("")     
-    resultSet2 = "SELECT COUNT(*) FROM adminAccount WHERE userAdmin=%s AND adminPassword= %s"
-    #log.write("Executing 'SELECT COUNT(*) FROM adminAccount WHERE userAdmin='"+userAdmin+"' AND adminPassword='"+adminPassword+"');\n")
-    answer6 = (userAdmin, adminPassword)
-    mycursor.execute(resultSet2, answer6)
-    commit
+    print("")
     
-    while ( resultSet2.next() ): 
-        if (resultSet2.getString(1) == "1"):
-            print(" Log In Successful!!")
-            #adminMenu()
-            import adminmenu
-        else:
-            print("Username/password combo not found. Try again!")
-            print("")
-            adminLogIn()
+    DB().logInAsAdmin()
             
-            
+
 adminLogIn()
