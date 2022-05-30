@@ -7,6 +7,8 @@ This is a CLI program that will analyze shark attack data using Python, PySpark,
   
   •	PySpark
   
+  •	MySQL
+  
   •	VS Code
   
 ### Current Features
