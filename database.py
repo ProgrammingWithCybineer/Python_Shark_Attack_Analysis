@@ -183,7 +183,7 @@ class DB():
     
     def query_sharkdatabase(self):
         if self.mydb.is_connected():
-            my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", mydb)
+            my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", self.mydb)
             print(my_data)
     
    
