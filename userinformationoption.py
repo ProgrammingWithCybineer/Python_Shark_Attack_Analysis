@@ -1,4 +1,4 @@
-from multiprocessing.connection import answer_challenge
+#from multiprocessing.connection import answer_challenge
 import database
 import mysql.connector
 

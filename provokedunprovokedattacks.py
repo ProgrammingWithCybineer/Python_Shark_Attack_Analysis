@@ -1,17 +1,15 @@
 import mysql.connector
 import database
 import pandas as pd
+from queries import typesOfQueries
 
-mycursor, commit = database.mysql_connection()
 
 
 #Query for the number of provoked and unprovoked shark attacks
 def provokedUnprovokedAttacks():
     print("Number of Provoked and Unprovoked Attacks")
-    provokedUnprovokedAttacks = pd.read_csv("input\GSAF5.csv")
-    provokedUnprovokedAttacks.query = "SELECT type, Count(type) AS whichTypeMost FROM GSAF5 WHERE type IS NOT NULL GROUP BY type ORDER BY whichTypeMost DESC"
     
-    print(provokedUnprovokedAttacks)
+    typesOfQueries().unprovokedVsProvokedAttacks()
     
     
     #This will write results of query to new csv file    

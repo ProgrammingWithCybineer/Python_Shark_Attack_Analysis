@@ -17,11 +17,12 @@ import os
 
 
 #connection for login database
-def mysql_connection_admin_login():
+# def mysql_connection_admin_login():
+def mysql_connection_login():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "#########################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
     database = "Shark_Attack_login",
     )
     #print(mydb)
@@ -31,8 +32,9 @@ def mysql_connection_admin_login():
     #mydb = mysql.connector.connect
     mycursor = mydb.cursor()
     commit = mydb.commit()
-    #mycursor.close()
-    #return mycursor, commit
+    
+    return mycursor, commit
+    
     
 
 
@@ -93,7 +95,7 @@ def mysql_connection_SharkDatabase():
     
        
 
-class DB:
+class DB():
     def __del__(self):
         self.mydb.close()
         
@@ -102,7 +104,7 @@ class DB:
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "###################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
@@ -113,25 +115,12 @@ class DB:
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "###################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("You are now connected to the database!!")
         
-        
-    #this will insert into database newly created user
-    # def insert_new_user_into_database(self):
-        #mycursor = self.mydb.cursor()
-        ## NEED TO CREATE SHARKATTACHDATABASE  DATABASE IN MYSQL ######
-        #resultSet1 = "INSERT INTO SharkAttackDatabase (userName, userPassword, userPassword2) VALUES (%s, %s, %s)"
-        #answer = (userName, userPassword, userPassword2)
-        #mycursor.execute(resultSet1,answer)
-        #mycursor.commit()
-        #userMenu()
-        
-        #mycursor.close()
-
-        
+       
     
     # Checks To See If **SharkAttackDataTable**  is created
     def isTableCreated(self):
@@ -158,7 +147,7 @@ class DB:
             return mycursor
             
 
-    # Creates Shark attack database table in MySQL
+    # Creates Shark attack Analysis database table in MySQL
     def sharkAttackData(self):
         sharkdata = pd.read_csv('input/GSAF51.csv',  keep_default_na=False, index_col=False, delimiter = ',')
         sharkdata.head()
@@ -245,7 +234,7 @@ class DB:
                 
                 if (row == 1):
                     print("You Have Logged In Successfully")
-                    #userChoice()
+                    
                     import userchoice
                     
                 else:
@@ -281,15 +270,13 @@ class DB:
             
 
 
-
-
-        
+       
     # Connection to run all queries in the program    
     def user_query_connection(self):
-        mydb = mysql.connector.connect(
+        self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#########################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")
@@ -297,15 +284,11 @@ class DB:
        
         mycursor = self.mydb.cursor()
         commit = self.mydb.commit()  
-             
-        return mycursor, commit    
-
-
+        
+            
+        return mycursor, commit
     
-        
-        
- 
-
-
-
-
+    
+    
+    
+    
