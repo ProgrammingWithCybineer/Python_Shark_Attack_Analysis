@@ -14,5 +14,6 @@ def totalSharkAttacks():
     
     import usermenu
 
+
 totalSharkAttacks()
 

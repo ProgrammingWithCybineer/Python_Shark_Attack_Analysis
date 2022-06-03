@@ -1,4 +1,3 @@
-from colorama import Cursor
 import mysql.connector
 import pyspark
 from pyspark import SparkContext, SparkConf
@@ -11,7 +10,6 @@ import pandas as pd
 import mysql.connector
 import sys
 import os
-#import ast
 
 
 
@@ -104,7 +102,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
@@ -115,7 +113,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("You are now connected to the database!!")
@@ -126,12 +124,9 @@ class DB():
     def isTableCreated(self):
         if self.mydb.is_connected():
             mycursor = self.mydb.cursor()
-            query = "SELECT *  FROM information_schema WHERE TABLE_NAME = %s"
-            tableName = ("SharkAttackDataTable")
-            #query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
-            #tableName = ("Shark_Attack_Login","SharkAttackDataTable")
-            answer = (query, tableName)
-            mycursor.execute(answer)
+            query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
+            tableName = ("Shark_Attack_Login","SharkAttackDataTable")
+            mycursor.execute(query, tableName)
             results = mycursor.fetchall()
             mycursor.close()
 
@@ -141,6 +136,7 @@ class DB():
 
             if tableName in results_list:
                 import usermenu
+                
             else:
                 import sharkattackdata 
             
@@ -185,14 +181,17 @@ class DB():
         if self.mydb.is_connected():
             my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", self.mydb)
             print(my_data)
+            import usermenu
     
    
         
     # Add users information to database
     def addUserToDatabase(self):
-        from createaccount import userName, userPassword, userPassword2
+        from globals import userName, userPassword, userPassword2
           
         if self.mydb.is_connected():
+            
+                
             if (userPassword == userPassword2):
                 mycursor = self.mydb.cursor()
                 print(" Account has been created")
@@ -202,36 +201,41 @@ class DB():
                 mycursor.execute(resultSet1, answer)
                 self.mydb.commit()
                 import userchoice
+                
 
             elif (userPassword != userPassword2):
-                
+            #else:    
                 print(" Passwords do not match, please try again")
                 print("")
+                #self.mydb.commit()
                 import createaccount
+                    
+                
 
 
-            elif (userPassword is None):
-                print(" Password Cannot Be Blank")
-                print("")
-                import createaccount
+
+            #elif (userPassword is None):
+                #print(" Password Cannot Be Blank")
+                #print("")
+                #import createaccount
     
-        return mycursor
+        #return mycursor
         
         
         
     # Verify Users Name and Password
-    def verifyUserLogin(self):
-        from userlogin import userName, userPassword
+    def verifyUserLogin(self):        
         
         if self.mydb.is_connected():
+            
+            from globals import userName, userPassword
             mycursor = self.mydb.cursor()
             resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
+           
             answer2 = (userName, userPassword)
-            
             mycursor.execute(resultSet2, answer2)
             rows=mycursor.fetchone()
             for row in rows:
-                
                 if (row == 1):
                     print("You Have Logged In Successfully")
                     
@@ -246,27 +250,26 @@ class DB():
         
     #Verify Admin name and Password
     def logInAsAdmin(self):
-        from adminlogin import adminName, adminPassword        
+        
         if self.mydb.is_connected():
-            
+            from globals import adminName, adminPassword 
             mycursor = self.mydb.cursor()
             resultSet2 = "SELECT * FROM adminaccount WHERE EXISTS (SELECT * FROM adminaccount WHERE adminName=%s AND adminPassword=%s)"
             answer2 = (adminName, adminPassword)
             mycursor.execute(resultSet2, answer2)
             rows=mycursor.fetchone()
             for row in rows:
-                
                 if (row == 1):
                     print("You Have Logged In Successfully")
-                    print("")
+                    
                     import adminmenu
                     
-                elif(row != 1):
+                else:
                     print("Admin name/password combo not found. Try again!")
-                    print("")
+                    
                     import adminlogin
                     
-                self.mydb.close()
+                #self.mydb.close()
             
 
 
@@ -276,7 +279,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "####################", #### REMOVE BEFORE COMMITING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")

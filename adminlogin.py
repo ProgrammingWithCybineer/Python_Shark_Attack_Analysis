@@ -8,11 +8,10 @@ from database import DB
 
 #logging in as Admin
 def adminLogIn():
-    global adminName
-    global adminPassword
-   
     DB().connectToDatabase()
-       
+    global adminName
+    global adminPassword 
+      
     print("Type Admin UserName")
     adminName = input("> ")
     print("")

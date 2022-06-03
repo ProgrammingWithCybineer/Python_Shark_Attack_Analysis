@@ -13,6 +13,7 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                import usermenu
     
         
     
@@ -24,6 +25,7 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                import usermenu
     
  
    
@@ -35,6 +37,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                import usermenu
+                
             
     def timeMostSharkAttacksHappen(self):
         if self.mydb.is_connected():
@@ -46,6 +50,7 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                import usermenu
     
     
     
@@ -57,10 +62,10 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                            
                 
                 
-                
-                
+             
     def unprovokedVsProvokedAttacks(self):
         if self.mydb.is_connected():
             provokedUnprovoked = "SELECT typeAttack, Count(typeAttack) AS whichTypeMost FROM SharkAttackTable WHERE typeAttack IS NOT NULL GROUP BY typeAttack ORDER BY whichtypeMost DESC"
@@ -69,4 +74,5 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                import usermenu
     

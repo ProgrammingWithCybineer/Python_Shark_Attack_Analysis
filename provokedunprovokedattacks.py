@@ -13,7 +13,7 @@ def provokedUnprovokedAttacks():
     
     
     #This will write results of query to new csv file    
-    #provokedUnprovokedAttacks.write.csv("results/provokedUnprovokedAttacks")
+    provokedUnprovokedAttacks.write.csv("results/provokedUnprovokedAttacks")
     
   
     #log.write("Executing 'SELECT typeAttack, Count(typeAttack) AS whichTypeMost FROM shark1 GROUP BY typeAttack ORDER BY whichTypeMost';\n")
