@@ -17,6 +17,9 @@ This is a CLI program that will analyze shark attack data using Python, PySpark,
   
   •	Admin can delete user from database
   
+  •	Create new user in database  
+  
+  
 ### Future Features
 
   • Create a GUI for better user interaction
