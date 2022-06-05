@@ -4,15 +4,12 @@ from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 import sqlalchemy as sa
 import pandas as pd
-import database
+from database import DB
 import mysql.connector
 import sys
 import os
 
 
-#mycursor, commit = database.mysql_connection()
-#conf, spark, sqlContext, sc, conf = database.spark_session()          
-#sc = SparkContext(spark)
 
     
 #Start of program
@@ -31,7 +28,7 @@ def mainMenu():
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("")        
-    print("")
+
     print("")
     print("###################################")
     print("Please choose from a Number the menu below: ")
@@ -46,6 +43,7 @@ def mainMenu():
         import createaccount
             
     elif(choice == 2):
+        DB().connectToDatabase()
         import userlogin
         
 

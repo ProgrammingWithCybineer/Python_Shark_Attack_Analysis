@@ -1,6 +1,7 @@
 from database import DB
 import mysql.connector
-
+import sys
+import os
 
 
 class typesOfQueries(DB):
@@ -19,7 +20,7 @@ class typesOfQueries(DB):
     
     def locationSharkAttacksHappen(self):
         if self.mydb.is_connected():
-            locationMostSharksAttacks = "SELECT (country) FROM SharkAttackTable WHERE country IS NOT NULL GROUP BY country ORDER BY COUNT(*) DESC"
+            locationMostSharksAttacks = "SELECT (country) FROM sharkattacktable WHERE country IS NOT NULL GROUP BY country ORDER BY COUNT(*) DESC;"
             mycursor = self.mydb.cursor()
             mycursor.execute(locationMostSharksAttacks)
             output = mycursor.fetchall()
@@ -62,6 +63,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
+                print("Back to User Query menu")
+                import usermenu
                             
                 
                 

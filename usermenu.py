@@ -9,7 +9,7 @@ from database import DB
 
 
 # User Menu
-def userMenu():
+def userQueryMenu():
                    
         print("")
         print(" What type of data would you like to view. Please select below: ")
@@ -72,9 +72,7 @@ def userMenu():
             
         elif (( choice3 != 0 or choice3 != 1 or choice3 != 2 or choice3 != 3 or choice3 != 4 or choice3 != 5 or choice3 != 6 or choice3 != 7)):
             print(" Not a valid choice, please try again!!!")
-            userMenu()
-            
-        else:
-            import sharkattackdata
+            userQueryMenu()
         
-userMenu()
+        
+userQueryMenu()

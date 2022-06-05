@@ -102,7 +102,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
@@ -113,7 +113,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("You are now connected to the database!!")
@@ -125,7 +125,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")
@@ -142,7 +142,6 @@ class DB():
     def isTableCreated(self):
         if self.mydb.is_connected():
             mycursor = self.mydb.cursor()
-            #query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
             query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
             tableName = ("Shark_Attack_Login","SharkAttackTable")
             mycursor.execute(query, tableName)
@@ -234,13 +233,14 @@ class DB():
             answer2 = (userName, userPassword)
             mycursor.execute(resultSet2, answer2)
             rows=mycursor.fetchone()
-            
-            for row in rows:
-                if (row == 1):
-                    print("You Have Logged In Successfully")
-                    import userchoice
-                    
-                else:
+            try:
+                for row in rows:
+                    if (row == 1):
+                        print("You Have Logged In Successfully")
+                        import userchoice
+                        
+            except:
+                #else:        
                     print("Username/password combo not found. Try again!")
                     import userlogin
             

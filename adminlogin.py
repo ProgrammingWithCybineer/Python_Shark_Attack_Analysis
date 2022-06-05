@@ -8,7 +8,7 @@ from database import DB
 
 #logging in as Admin
 def adminLogIn():
-    DB().connectToDatabase()
+    #DB().connectToDatabase()
     global adminName
     global adminPassword 
       

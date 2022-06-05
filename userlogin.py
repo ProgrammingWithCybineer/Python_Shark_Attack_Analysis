@@ -4,12 +4,9 @@ import ast
 from database import DB
 
 
-
- 
-
 #User logging in
 def userLogIn():
-    DB().connectToDatabase()  
+     
     global userName
     global userPassword    
     
@@ -18,6 +15,7 @@ def userLogIn():
     print("")
     print(" Please type A Password")
     userPassword = input("> ")
+    
     DB().verifyUserLogin()
     
 userLogIn()
