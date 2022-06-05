@@ -63,7 +63,6 @@ def userMenu():
             import agerangepeopleattacked
             
         
-
         elif (choice3 == 7):
             print(" Return To Log In Screen...")
             import sharkAnalysis
@@ -76,7 +75,6 @@ def userMenu():
             userMenu()
             
         else:
-            #import sharkattackdata
             import sharkattackdata
         
 userMenu()

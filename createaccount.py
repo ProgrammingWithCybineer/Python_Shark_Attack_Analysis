@@ -1,12 +1,3 @@
-import pyspark
-from pyspark import SparkContext, SparkConf
-from pyspark.sql import SparkSession
-from pyspark.sql import SQLContext
-from pyspark.sql import HiveContext
-import pandas as pd
-import mysql.connector
-import sys
-import os
 from database import DB
 
 

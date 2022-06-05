@@ -20,7 +20,7 @@ def mysql_connection_login():
     mydb = mysql.connector.connect(
     host = "localhost",
     user = "root",
-    passwd = "#######################",#### REMOVE BEFORE COMMITING CODE
+    passwd = "#######################",#### REMOVE BEFORE COMMITTING CODE
     database = "Shark_Attack_login",
     )
     #print(mydb)
@@ -79,7 +79,7 @@ def mysql_connection_SharkDatabase():
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",
     )    
     
@@ -118,29 +118,48 @@ class DB():
         )
         print("You are now connected to the database!!")
         
+    
+    
+    # Connection to run all queries in the program    
+    def user_query_connection(self):
+        self.mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        database = "Shark_Attack_Login",
+        )
+        print("Connected to database. You can now run your query")
+        global mycursor
+       
+        mycursor = self.mydb.cursor()
+        commit = self.mydb.commit()  
+        return mycursor, commit
+    
+    
        
     
     # Checks To See If **SharkAttackDataTable**  is created
     def isTableCreated(self):
         if self.mydb.is_connected():
             mycursor = self.mydb.cursor()
-            query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
-            tableName = ("Shark_Attack_Login","SharkAttackDataTable")
+            #query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
+            query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s"
+            tableName = ("Shark_Attack_Login","SharkAttackTable")
             mycursor.execute(query, tableName)
-            results = mycursor.fetchall()
+            #results = mycursor.fetchone()
+            rows = mycursor.fetchone()
             mycursor.close()
-
-            print('Checking For Table:', results) # Returned as a list of tuples
-
-            results_list = [item[0] for item in results] # Conversion to list of str
-
-            if tableName in results_list:
-                import usermenu
-                
-            else:
-                import sharkattackdata 
             
-            return mycursor
+            for row in rows:
+                if (row == 1):
+                    print("Table Already Exists")
+                    import usermenu
+                    
+                else:
+                    print("Creating Table Now....")
+                    import sharkattackdata 
+
+            
             
 
     # Creates Shark attack Analysis database table in MySQL
@@ -153,21 +172,19 @@ class DB():
             sharkcursor = self.mydb.cursor() 
             sharkcursor.execute("select database();")
             record = sharkcursor.fetchone()
- 
-            
             print("You're connected to database: ", record)
-            sharkcursor.execute("DROP TABLE IF EXISTS SharkAttackDataTable;")
+            sharkcursor.execute("DROP TABLE IF EXISTS SharkAttackTable;")
             print('Creating table....')
             
             #pass the create table statement which you want to create
-            sharkcursor.execute('CREATE TABLE SharkAttackDataTable(caseNumber varchar(255), date varchar(255), year varchar(255), typeAttack varchar(255), country varchar(255), area varchar(255), location varchar(255), activity varchar(255), name varchar(255), sex varchar(255), age varchar(255), injury varchar(255), fatal varchar(255), time varchar(255), species varchar(255), investigator_or_source varchar(255), pdf varchar(255), href_formula varchar(255), href varchar(255), case_number1 varchar(255), case_number varchar(255), original_order varchar(255))')
+            sharkcursor.execute('CREATE TABLE SharkAttackTable(caseNumber varchar(255), date varchar(255), year varchar(255), typeAttack varchar(255), country varchar(255), area varchar(255), location varchar(255), activity varchar(255), name varchar(255), sex varchar(255), age varchar(255), injury varchar(255), fatal varchar(255), time varchar(255), species varchar(255), investigator_or_source varchar(255), pdf varchar(255), href_formula varchar(255), href varchar(255), case_number1 varchar(255), case_number varchar(255), original_order varchar(255))')
             
             print("Table is created....")
                 
             #loop through the data frame
             for i,row in sharkdata.iterrows():
                #here %S means string values 
-               sql = "INSERT INTO shark_attack_login.SharkAttackdataTable VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+               sql = "INSERT INTO shark_attack_login.SharkAttackTable VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
                sharkcursor.execute(sql, tuple(row))
                print("Record inserted")
                 
@@ -179,7 +196,7 @@ class DB():
     
     def query_sharkdatabase(self):
         if self.mydb.is_connected():
-            my_data = pd.read_sql("SELECT * FROM SharkAttackdataTable limit 100", self.mydb)
+            my_data = pd.read_sql("SELECT * FROM SharkAttackTable limit 100", self.mydb)
             print(my_data)
             import usermenu
     
@@ -187,11 +204,9 @@ class DB():
         
     # Add users information to database
     def addUserToDatabase(self):
-        from globals import userName, userPassword, userPassword2
-          
+        from createaccount import userName, userPassword, userPassword2 
+        
         if self.mydb.is_connected():
-            
-                
             if (userPassword == userPassword2):
                 mycursor = self.mydb.cursor()
                 print(" Account has been created")
@@ -203,95 +218,51 @@ class DB():
                 import userchoice
                 
 
-            elif (userPassword != userPassword2):
-            #else:    
+            elif (userPassword != userPassword2):    
                 print(" Passwords do not match, please try again")
                 print("")
-                #self.mydb.commit()
                 import createaccount
-                    
-                
-
-
-
-            #elif (userPassword is None):
-                #print(" Password Cannot Be Blank")
-                #print("")
-                #import createaccount
-    
-        #return mycursor
-        
-        
+       
         
     # Verify Users Name and Password
     def verifyUserLogin(self):        
+        from userlogin import userName, userPassword
         
         if self.mydb.is_connected():
-            
-            from globals import userName, userPassword
             mycursor = self.mydb.cursor()
             resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
-           
             answer2 = (userName, userPassword)
             mycursor.execute(resultSet2, answer2)
             rows=mycursor.fetchone()
+            
             for row in rows:
                 if (row == 1):
                     print("You Have Logged In Successfully")
-                    
                     import userchoice
                     
                 else:
                     print("Username/password combo not found. Try again!")
-                    
                     import userlogin
             
         
         
     #Verify Admin name and Password
     def logInAsAdmin(self):
+        from adminlogin import adminName, adminPassword
         
         if self.mydb.is_connected():
-            from globals import adminName, adminPassword 
             mycursor = self.mydb.cursor()
             resultSet2 = "SELECT * FROM adminaccount WHERE EXISTS (SELECT * FROM adminaccount WHERE adminName=%s AND adminPassword=%s)"
             answer2 = (adminName, adminPassword)
             mycursor.execute(resultSet2, answer2)
             rows=mycursor.fetchone()
+            
             for row in rows:
                 if (row == 1):
                     print("You Have Logged In Successfully")
-                    
                     import adminmenu
                     
                 else:
                     print("Admin name/password combo not found. Try again!")
-                    
                     import adminlogin
-                    
-                #self.mydb.close()
-            
-
-
-       
-    # Connection to run all queries in the program    
-    def user_query_connection(self):
-        self.mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITING CODE
-        database = "Shark_Attack_Login",
-        )
-        print("Connected to database. You can now run your query")
-        global mycursor
-       
-        mycursor = self.mydb.cursor()
-        commit = self.mydb.commit()  
-        
-            
-        return mycursor, commit
-    
-    
-    
-    
     

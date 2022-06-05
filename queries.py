@@ -1,6 +1,6 @@
 from database import DB
 import mysql.connector
-import pandas as pd
+
 
 
 class typesOfQueries(DB):
