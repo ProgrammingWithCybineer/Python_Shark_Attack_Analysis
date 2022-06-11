@@ -102,7 +102,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
@@ -113,7 +113,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("You are now connected to the database!!")
@@ -125,7 +125,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "##################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")
@@ -226,25 +226,25 @@ class DB():
     # Verify Users Name and Password
     def verifyUserLogin(self):        
         from userlogin import userName, userPassword
-        
-        if self.mydb.is_connected():
-            mycursor = self.mydb.cursor()
-            resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
-            answer2 = (userName, userPassword)
-            mycursor.execute(resultSet2, answer2)
-            rows=mycursor.fetchone()
-            try:
+        try:
+            if self.mydb.is_connected():
+                mycursor = self.mydb.cursor()
+                resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
+                answer2 = (userName, userPassword)
+                mycursor.execute(resultSet2, answer2)
+                rows=mycursor.fetchone()
+                
                 for row in rows:
                     if (row == 1):
                         print("You Have Logged In Successfully")
                         import userchoice
                         
-            except:
-                #else:        
-                    print("Username/password combo not found. Try again!")
-                    import userlogin
-            
-        
+        except:
+            #else:
+            print("Username/password combo not found. Try again!")
+            import userlogin
+
+          
         
     #Verify Admin name and Password
     def logInAsAdmin(self):
