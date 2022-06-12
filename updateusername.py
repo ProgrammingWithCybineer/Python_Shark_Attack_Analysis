@@ -1,4 +1,7 @@
+
 from databaseupdates import databaseQueries
+import sys
+import os
 
 
 
@@ -10,13 +13,22 @@ def changeUserName():
     print(" Type A OLD User Name")
     olduserName = input("> ")
     print("")
-    print(" Type A NEW User Name")
-    newuserName = input("> ")
-    print("")
-    
- 
-    databaseQueries().updateUserName()
-    
+    if olduserName.isalpha():
+        print(" Type A NEW User Name")
+        newuserName = input("> ")
+        print("")
+    elif olduserName.isdigit():
+        print("Not a valid entry")
+        changeUserName()
+        if newuserName.isalpha():
+            databaseQueries().updateUserName()
+        elif newuserName.isdigit():
+            print(" Not a valid entry")
+            changeUserName()
+            
+            
+            
+   
     
 changeUserName()
 

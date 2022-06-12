@@ -102,21 +102,21 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
         
 
     
-    def connectToDatabase(self):
-        self.mydb = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
-        database = "Shark_Attack_Login",            
-        )
-        print("You are now connected to the database!!")
+    # def connectToDatabase(self):
+        #self.mydb = mysql.connector.connect(
+        #host = "localhost",
+       # user = "root",
+        #passwd = "###################, #### REMOVE BEFORE COMMITTING CODE
+       # database = "Shark_Attack_Login",            
+       # )
+       # print("You are now connected to the database!!")
         
     
     
@@ -125,7 +125,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")
@@ -226,23 +226,66 @@ class DB():
     # Verify Users Name and Password
     def verifyUserLogin(self):        
         from userlogin import userName, userPassword
-        try:
-            if self.mydb.is_connected():
-                mycursor = self.mydb.cursor()
-                resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
-                answer2 = (userName, userPassword)
-                mycursor.execute(resultSet2, answer2)
-                rows=mycursor.fetchone()
-                
-                for row in rows:
+        
+        #try:
+        if self.mydb.is_connected():
+            mycursor = self.mydb.cursor()
+            resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
+            answer2 = (userName, userPassword)
+            mycursor.execute(resultSet2, answer2)
+            rows = mycursor.fetchone()
+               
+            for row in rows:
+                while row == 1: 
                     if (row == 1):
                         print("You Have Logged In Successfully")
                         import userchoice
-                        
+                        break
+                            
+                #except:
+                    else:
+                        print("Username/password combo not found. Try again!")
+                        import userlogin
+                        continue
+                    
+                    
+                    
+    # https://github.com/microsoft/pylance-release/issues/757                
+    # https://stackoverflow.com/questions/57121949/how-can-i-validate-in-python-if-a-username-and-password-already-exist-in-mysql-d                 
+    def loginVerifyUser(self):
+        from userlogin import userName, userPassword
+        #append password and username in the emptey list below for later checkings
+        mypassword_queue = []
+        resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
+        answer2 = (userName, userPassword)
+        mycursor = self.mydb.cursor()
+
+        try:
+            mycursor.execute(resultSet2, answer2)
+            myresults =mycursor.fetchall()
+            for row in myresults:
+                for x in row:
+                    mypassword_queue.append(x)
         except:
-            #else:
-            print("Username/password combo not found. Try again!")
+            print('error occured')
+
+        if (userName and userPassword) in mypassword_queue:
+            print('there is something')
+            import userchoice
+        else:
+            print('there is no anything')
             import userlogin
+
+        self.mydb.close()
+
+
+#root = connections()
+#---you must have created a database with choice of your database name for this case it is testing
+#---- the data inside has name as tumusiime and password 1234
+#root.connect_database('tumusiime','1234')            
+                    
+                    
+                    
 
           
         

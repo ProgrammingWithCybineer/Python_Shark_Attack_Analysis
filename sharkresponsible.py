@@ -1,6 +1,10 @@
 import mysql.connector
 from queries import typesOfQueries
 import pandas as pd
+import sys
+import os
+
+from usermenu import *
 
 
 
@@ -16,7 +20,7 @@ def sharkResponsible():
     #log.write("Executing 'SELECT (species) FROM shark1 GROUP BY species ORDER BY COUNT(*) DESC';\n")
     
     
-    import usermenu
+    #import usermenu
 
 sharkResponsible()
 

@@ -1,7 +1,9 @@
 import mysql.connector
 from queries import typesOfQueries
 import pandas as pd
-   
+import sys
+import os
+  
 
    
 #STILL NEED TO FIGURE OUT THIS QUERY

@@ -1,5 +1,7 @@
 from database import DB
 import pandas as pd
+import sys
+import os
 
 
 class databaseQueries(DB):

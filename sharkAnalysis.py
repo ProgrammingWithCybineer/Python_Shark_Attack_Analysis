@@ -32,6 +32,7 @@ def mainMenu():
     print("")
     print("###################################")
     print("Please choose from a Number the menu below:")
+    print("(1) Create User Account")
     print("(2) User Log In ")
     print("(3) Admin Log In ")
     print("(0) Quit Program")
@@ -42,7 +43,7 @@ def mainMenu():
         import createaccount
             
     elif(choice == 2):
-        DB().connectToDatabase()
+        #DB().connectToDatabase()
         import userlogin
         
 

@@ -2,6 +2,8 @@ import mysql.connector
 import database
 import pandas as pd
 from queries import typesOfQueries
+import sys
+import os
 
 
 
@@ -11,6 +13,7 @@ def provokedUnprovokedAttacks():
     
     typesOfQueries().unprovokedVsProvokedAttacks()
     
+ 
     
     #This will write results of query to new csv file    
     #provokedUnprovokedAttacks.write.csv("results/provokedUnprovokedAttacks")

@@ -2,9 +2,23 @@ from database import DB
 import mysql.connector
 import sys
 import os
+import pandas as pd
+
 
 
 class typesOfQueries(DB):
+    
+    def totalnumbersharkattacks(self):
+        if self.mydb.is_connected():
+            totalSharkAttacks = "SELECT COUNT(year) AS TotalAttacks FROM SharkAttackTable WHERE year > 1950"
+            mycursor = self.mydb.cursor()        
+            mycursor.execute(totalSharkAttacks)
+            output = mycursor.fetchall()
+            for x in output:
+                print(x)
+                print("Back to User Query menu")
+        
+    
     
     def avgAgePeopleAttacked(self):
         if self.mydb.is_connected():
@@ -54,21 +68,7 @@ class typesOfQueries(DB):
                 import usermenu
     
     
-    
-    def totalnumbersharkattacks(self):
-        if self.mydb.is_connected():
-            totalSharkAttacks = "SELECT COUNT(year) AS TotalAttacks FROM SharkAttackTable WHERE year > 1950"
-            mycursor = self.mydb.cursor()        
-            mycursor.execute(totalSharkAttacks)
-            output = mycursor.fetchall()
-            for x in output:
-                print(x)
-                print("Back to User Query menu")
-                import usermenu
-                            
-                
-                
-             
+          
     def unprovokedVsProvokedAttacks(self):
         if self.mydb.is_connected():
             provokedUnprovoked = "SELECT typeAttack, Count(typeAttack) AS whichTypeMost FROM SharkAttackTable WHERE typeAttack IS NOT NULL GROUP BY typeAttack ORDER BY whichtypeMost DESC"
@@ -78,4 +78,7 @@ class typesOfQueries(DB):
             for x in output:
                 print(x)
                 import usermenu
+    
+    
+ 
     
