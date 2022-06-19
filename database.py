@@ -282,7 +282,7 @@ class DB():
 #root = connections()
 #---you must have created a database with choice of your database name for this case it is testing
 #---- the data inside has name as tumusiime and password 1234
-#root.connect_database('tumusiime','1234')            
+#root.connect_database('tumusiime','1234')         
                     
                     
                     
