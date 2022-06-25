@@ -17,9 +17,8 @@ class typesOfQueries(DB):
             for x in output:
                 print(x)
                 print("Back to User Query menu")
-        
-    
-    
+   
+     
     def avgAgePeopleAttacked(self):
         if self.mydb.is_connected():
             averageAgeAttacked = "SELECT sex, AVG(age) AS averageAgeAttacked FROM SharkAttackTable WHERE age IS NOT NULL AND sex IS NOT NULL GROUP BY sex"
@@ -29,8 +28,7 @@ class typesOfQueries(DB):
             for x in output:
                 print(x)
                 import usermenu
-    
-        
+       
     
     def locationSharkAttacksHappen(self):
         if self.mydb.is_connected():
@@ -42,7 +40,6 @@ class typesOfQueries(DB):
                 print(x)
                 import usermenu
     
- 
    
     def sharkResponsibleMostAttack(self):
         if self.mydb.is_connected():

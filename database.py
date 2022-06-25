@@ -6,7 +6,6 @@ from pyspark.sql import SQLContext
 from pyspark.sql import HiveContext
 import sqlalchemy as sa
 import pandas as pd
-#import database
 import mysql.connector
 import sys
 import os
@@ -157,9 +156,7 @@ class DB():
                 else:
                     print("Creating Table Now....")
                     import sharkattackdata 
-
-            
-            
+         
 
     # Creates Shark attack Analysis database table in MySQL
     def sharkAttackData(self):
