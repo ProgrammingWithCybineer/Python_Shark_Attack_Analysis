@@ -17,6 +17,7 @@ class typesOfQueries(DB):
             for x in output:
                 print(x)
                 print("Back to User Query menu")
+                import usermenu
    
      
     def avgAgePeopleAttacked(self):
