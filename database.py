@@ -101,7 +101,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
@@ -124,7 +124,7 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")

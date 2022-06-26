@@ -4,6 +4,7 @@ import pandas as pd
 from queries import typesOfQueries
 import sys
 import os
+from usermenu import userQueryMenu
 
 
 
@@ -21,6 +22,7 @@ def provokedUnprovokedAttacks():
   
     #log.write("Executing 'SELECT typeAttack, Count(typeAttack) AS whichTypeMost FROM shark1 GROUP BY typeAttack ORDER BY whichTypeMost';\n")
     
+    userQueryMenu()
 
 
 provokedUnprovokedAttacks()

@@ -3,6 +3,7 @@ from queries import typesOfQueries
 import pandas as pd
 import sys
 import os
+from usermenu import userQueryMenu
 
 
 
@@ -11,7 +12,7 @@ def ageRangePeopleAttacked():
     
     typesOfQueries().avgAgePeopleAttacked()
     
-    import usermenu
+    userQueryMenu()
 
 
 ageRangePeopleAttacked()

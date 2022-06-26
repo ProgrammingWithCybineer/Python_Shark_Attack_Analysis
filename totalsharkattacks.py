@@ -3,6 +3,7 @@ from queries import typesOfQueries
 import pandas as pd
 import sys
 import os
+from usermenu import userQueryMenu
 
 
 def totalSharkAttacks():
@@ -14,7 +15,7 @@ def totalSharkAttacks():
     typesOfQueries().totalnumbersharkattacks()
     
     
-    import usermenu
+    userQueryMenu()
 
 
 totalSharkAttacks()

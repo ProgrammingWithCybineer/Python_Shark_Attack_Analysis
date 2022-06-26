@@ -16,9 +16,10 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                print("Back to User Query menu")
-                import usermenu
-   
+                
+                
+                
+    
      
     def avgAgePeopleAttacked(self):
         if self.mydb.is_connected():
@@ -28,7 +29,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                import usermenu
+                
+                
        
     
     def locationSharkAttacksHappen(self):
@@ -39,7 +41,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                import usermenu
+                
+                
     
    
     def sharkResponsibleMostAttack(self):
@@ -50,7 +53,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                import usermenu
+                
+                
                 
             
     def timeMostSharkAttacksHappen(self):
@@ -63,7 +67,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                import usermenu
+                
+                
     
     
           
@@ -75,7 +80,8 @@ class typesOfQueries(DB):
             output = mycursor.fetchall()
             for x in output:
                 print(x)
-                import usermenu
+                
+                
     
     
  

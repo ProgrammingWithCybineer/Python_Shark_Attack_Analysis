@@ -3,7 +3,7 @@ from queries import typesOfQueries
 import pandas as pd
 import sys
 import os
-
+from usermenu import userQueryMenu
 
 #Query for location of most shark attacks
 def locationMostSharksAttacks():
@@ -12,7 +12,8 @@ def locationMostSharksAttacks():
     
     typesOfQueries().locationSharkAttacksHappen()
     
- 
+    
+    userQueryMenu()
     
 
 locationMostSharksAttacks()

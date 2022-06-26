@@ -3,8 +3,8 @@ from queries import typesOfQueries
 import pandas as pd
 import sys
 import os
-
-from usermenu import *
+from usermenu import userQueryMenu
+#from usermenu import *
 
 
 
@@ -18,9 +18,8 @@ def sharkResponsible():
     
     
     #log.write("Executing 'SELECT (species) FROM shark1 GROUP BY species ORDER BY COUNT(*) DESC';\n")
-    
-    
-    #import usermenu
+    print("Back to User Query menu")
+    userQueryMenu()
 
 sharkResponsible()
 

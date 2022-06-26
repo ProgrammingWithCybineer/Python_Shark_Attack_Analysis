@@ -3,6 +3,7 @@ from queries import typesOfQueries
 import pandas as pd
 import sys
 import os
+from usermenu import userQueryMenu
   
 
    
@@ -25,7 +26,7 @@ def timeOfDaySharkAttack():
     
     #log.write("Executing 'NEED TO ADD LOG HERE');\n")
     
-    import usermenu
+    userQueryMenu()
 
 
 timeOfDaySharkAttack()

@@ -38,6 +38,7 @@ def userQueryMenu():
             import totalsharkattacks
             
             
+            
         elif (choice3 == 2):
             print(" What shark is responsible for the most shark attacks?")
             import sharkresponsible

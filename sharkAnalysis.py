@@ -6,7 +6,6 @@ import sqlalchemy as sa
 import pandas as pd
 from database import DB
 import mysql.connector
-import sys
 import os
 
 
