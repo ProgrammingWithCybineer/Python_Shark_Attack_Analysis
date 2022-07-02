@@ -13,18 +13,18 @@ def changeUserName():
     print(" Type A OLD User Name")
     olduserName = input("> ")
     print("")
-    if olduserName.isalpha():
+    if olduserName != "":
         print(" Type A NEW User Name")
         newuserName = input("> ")
         print("")
-    elif olduserName.isdigit():
+        databaseQueries().updateUserName()
+    elif olduserName:
         print("Not a valid entry")
         changeUserName()
-        if newuserName.isalpha():
-            databaseQueries().updateUserName()
-        elif newuserName.isdigit():
-            print(" Not a valid entry")
-            changeUserName()
+        
+    elif newuserName == "":
+        print(" Not a valid entry")
+        changeUserName()
             
             
             

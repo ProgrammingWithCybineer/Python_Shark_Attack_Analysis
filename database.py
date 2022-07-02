@@ -13,6 +13,7 @@ import os
 
 
 
+
 #connection for login database
 # def mysql_connection_admin_login():
 def mysql_connection_login():
@@ -29,20 +30,15 @@ def mysql_connection_login():
     #mydb = mysql.connector.connect
     mycursor = mydb.cursor()
     commit = mydb.commit()
-    
     return mycursor, commit
-    
-    
-
+   
 
 
 def hive_context():
-    
     conf = SparkConf()
     sc = SparkContext.getOrCreate(conf=conf)
     hc = HiveContext(sc)
     return hc, sc, 
-
 
 
 
@@ -53,6 +49,7 @@ def spark_session():
         .setAppName("sharkAnalysis")\
         .setAll([("spark.driver.memory", "1g"),\
         ("spark.executor.memory", "1g")])
+   
         
         
     #spark = SparkSession(sc)\
@@ -79,6 +76,7 @@ def mysql_connection_SharkDatabase():
         host = "localhost",
         user = "root",
         passwd = "#######################", #### REMOVE BEFORE COMMITTING CODE
+        #passwd = "###################, 
         database = "Shark_Attack_Login",
     )    
     
@@ -101,30 +99,21 @@ class DB():
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
+        #passwd = "###################, 
         database = "Shark_Attack_Login",            
         )
         print("Started database connection")
-        
-
     
-    # def connectToDatabase(self):
-        #self.mydb = mysql.connector.connect(
-        #host = "localhost",
-       # user = "root",
-        #passwd = "###################, #### REMOVE BEFORE COMMITTING CODE
-       # database = "Shark_Attack_Login",            
-       # )
-       # print("You are now connected to the database!!")
-        
-    
+       
     
     # Connection to run all queries in the program    
     def user_query_connection(self):
         self.mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        passwd = "####################", #### REMOVE BEFORE COMMITTING CODE
+        passwd = "###################", #### REMOVE BEFORE COMMITTING CODE
+        #passwd = "###################, 
         database = "Shark_Attack_Login",
         )
         print("Connected to database. You can now run your query")
@@ -133,8 +122,7 @@ class DB():
         mycursor = self.mydb.cursor()
         commit = self.mydb.commit()  
         return mycursor, commit
-    
-    
+     
        
     
     # Checks To See If **SharkAttackDataTable**  is created
@@ -156,7 +144,8 @@ class DB():
                 else:
                     print("Creating Table Now....")
                     import sharkattackdata 
-         
+    
+        
 
     # Creates Shark attack Analysis database table in MySQL
     def sharkAttackData(self):
@@ -269,6 +258,7 @@ class DB():
         if (userName and userPassword) in mypassword_queue:
             print('there is something')
             import userchoice
+            
         else:
             print('there is no anything')
             import userlogin

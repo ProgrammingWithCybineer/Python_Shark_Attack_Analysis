@@ -2,8 +2,6 @@ import sys
 import os
 
 
-
-
 #Update/ change User name and/or userpassword
 def userInformationOption():
     
@@ -39,7 +37,7 @@ def userInformationOption():
     
     elif (( choice2 != 0 or choice2 != 1 or choice2 != 2 or choice2 != 3)): 
         print(" Not a valid choice, please try again!!!")
-        import userchoice
+        
         
         
         
