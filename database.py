@@ -12,8 +12,6 @@ import os
 
 
 
-
-
 #connection for login database
 # def mysql_connection_admin_login():
 def mysql_connection_login():
@@ -85,10 +83,7 @@ def mysql_connection_SharkDatabase():
     sharkcommit = mydb.commit()
     return sharkcursor, sharkcommit, mydb
     
-
-
-    
-       
+      
 
 class DB():
     def __del__(self):
