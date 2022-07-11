@@ -23,7 +23,7 @@ def createUserAccount():
         
        
     
-    DB().connectToDatabase()  
+    #DB().connectToDatabase()  
     DB().addUserToDatabase()
 
         

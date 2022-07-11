@@ -10,7 +10,7 @@ class typesOfQueries(DB):
     
     def totalnumbersharkattacks(self):
         if self.mydb.is_connected():
-            totalSharkAttacks = "SELECT COUNT(year) AS TotalAttacks FROM SharkAttackTable WHERE year > 1950"
+            totalSharkAttacks = "SELECT COUNT(year) AS TotalAttacks FROM SharkAttackTable WHERE year > 1921"
             mycursor = self.mydb.cursor()        
             mycursor.execute(totalSharkAttacks)
             output = mycursor.fetchall()
@@ -46,9 +46,9 @@ class typesOfQueries(DB):
     # Need to Convert time to show accurately******        
     def timeMostSharkAttacksHappen(self):
         if self.mydb.is_connected():
-            timeOfDaySharkAttack1 = "CREATE VIEW IF NOT EXISTS SharkAttackTable AS SELECT CAST(regexp_replace(time, 'h00', '') AS int) AS time FROM SharkAttackTable WHERE time IS NOT NULL"
-            timeOfDaySharkAttack1 = "SELECT AVG(time) FROM SharkAttackTable WHERE time IS NOT NULL"
-            #timeOfDaySharkAttack1 = "SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(`time`))) FROM SharkAttackTable"        
+            #timeOfDaySharkAttack1 = "CREATE VIEW IF NOT EXISTS SharkAttackTable AS SELECT CAST(regexp_replace(time, 'h00', '') AS int) AS time FROM SharkAttackTable WHERE time IS NOT NULL"
+            #timeOfDaySharkAttack1 = "SELECT AVG(time) FROM SharkAttackTable WHERE time IS NOT NULL"
+            timeOfDaySharkAttack1 = "SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(`time`))) FROM SharkAttackTable"        
             mycursor = self.mydb.cursor()        
             mycursor.execute(timeOfDaySharkAttack1)
             output = mycursor.fetchall()
