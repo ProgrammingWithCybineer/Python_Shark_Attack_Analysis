@@ -25,10 +25,7 @@ def changeUserName():
     elif newuserName == "":
         print(" Not a valid entry")
         changeUserName()
-            
-            
-            
-   
+    
     
 changeUserName()
 

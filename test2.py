@@ -9,7 +9,7 @@ import pandas as pd
 sharkdata = pd.read_csv('input/GSAF51.csv', keep_default_na=False, index_col=False, delimiter = ',')
 sharkdata.head()
 
-
+#To see if try/catch block was needed here
 try:
     mydb = mysql.connector.connect(
     host = "localhost",

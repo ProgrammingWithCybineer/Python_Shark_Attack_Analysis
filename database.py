@@ -21,8 +21,6 @@ def mysql_connection_login():
     passwd = "#######################",#### REMOVE BEFORE COMMITTING CODE
     database = "Shark_Attack_login",
     )
-    #print(mydb)
-   
     
     # Create Cursor Instance
     #mydb = mysql.connector.connect

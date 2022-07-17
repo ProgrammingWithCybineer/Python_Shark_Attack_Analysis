@@ -16,8 +16,7 @@ class databaseQueries(DB):
             self.mydb.commit()
             print("User Name Updated")
             import userchoice
-  
-   
+     
             
     def updateUserPassword(self):
         from updateuserpassword import userName, newUserPassword
@@ -29,8 +28,7 @@ class databaseQueries(DB):
             self.mydb.commit()
             print("User Password Updated")
             import userchoice
-  
-            
+              
     
     def listUsers(self):
        if self.mydb.is_connected():
@@ -40,7 +38,6 @@ class databaseQueries(DB):
             resultSet4 = mycursor.fetchall()
             for x in resultSet4:
                 print(x)
- 
   
               
     def updateDeleteUser(self):

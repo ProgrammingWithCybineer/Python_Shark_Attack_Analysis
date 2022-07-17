@@ -3,8 +3,6 @@ import sys
 import os
 
 
-
-
 def changeUserPassword():
     global userName
     global oldUserPassword
@@ -20,7 +18,7 @@ def changeUserPassword():
     newUserPassword = input("> ")
     print("")
     
- 
+     
     databaseQueries().updateUserPassword()
     
     

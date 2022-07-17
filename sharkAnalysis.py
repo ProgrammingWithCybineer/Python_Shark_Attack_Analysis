@@ -41,7 +41,6 @@ def mainMenu():
         import createaccount
             
     elif(choice == 2):
-        #DB().connectToDatabase()
         import userlogin
         
 

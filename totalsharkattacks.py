@@ -10,13 +10,9 @@ def totalSharkAttacks():
       
     print("Total number of attacks recorded...")
     
-     
-    
     typesOfQueries().totalnumbersharkattacks()
     
-    
     userQueryMenu()
-
 
 totalSharkAttacks()
 

@@ -12,7 +12,6 @@ def locationMostSharksAttacks():
     
     typesOfQueries().locationSharkAttacksHappen()
     
-    
     userQueryMenu()
     
 

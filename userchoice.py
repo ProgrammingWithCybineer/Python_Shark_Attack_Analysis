@@ -23,8 +23,7 @@ def usersMenuOption():
         #userMenu()
         DB().isTableCreated()
         #import usermenu
-
-        
+       
     elif (choice2 == 2): 
         print(" User Information Menu")
         #userInformationOption()
@@ -34,17 +33,14 @@ def usersMenuOption():
         print(" Main Menu")
         #mainMenu()
         import userchoice
-        
+      
     elif (choice2 == 4): 
         print(" Exit Program")
         #exitProgram()
         import exitprogram
         
-        
     elif ((choice2 != 1 or choice2 != 2 or choice2 != 3 or choice2 != 4)): 
         print(" Not a valid choice, please try again!!!")
-        
-        
         
         
 usersMenuOption()

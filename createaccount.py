@@ -22,8 +22,7 @@ def createUserAccount():
     userPassword2 = input("> ")
         
        
-    
-    #DB().connectToDatabase()  
+
     DB().addUserToDatabase()
 
         

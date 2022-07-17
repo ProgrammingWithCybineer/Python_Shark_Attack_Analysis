@@ -39,7 +39,5 @@ def userInformationOption():
         print(" Not a valid choice, please try again!!!")
         
         
-        
-        
 userInformationOption()
  

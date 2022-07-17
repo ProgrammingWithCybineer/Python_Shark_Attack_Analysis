@@ -14,8 +14,6 @@ def provokedUnprovokedAttacks():
     
     typesOfQueries().unprovokedVsProvokedAttacks()
     
- 
-    
     #This will write results of query to new csv file    
     #provokedUnprovokedAttacks.write.csv("results/provokedUnprovokedAttacks")
     
