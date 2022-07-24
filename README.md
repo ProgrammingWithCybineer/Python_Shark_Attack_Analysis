@@ -29,3 +29,6 @@ This is a CLI program that will analyze shark attack data using Python, Pandas, 
   • Create a GUI for better user interaction
 
   •	Allow automatic update of the latest shark attack data.
+  
+  •	Allow user to pick species first, then choose questions based of that species.
+  
