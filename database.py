@@ -12,6 +12,7 @@ import os
 
 
 
+
 #connection for login database
 # def mysql_connection_admin_login():
 def mysql_connection_login():
@@ -182,7 +183,7 @@ class DB():
         
     # Add users information to database
     def addUserToDatabase(self):
-        from createaccount import userName, userPassword, userPassword2 
+        from createaccount import userName, userPassword, userPassword2, createUserAccount 
         
         if self.mydb.is_connected():
             if (userPassword == userPassword2):
@@ -199,41 +200,41 @@ class DB():
             elif (userPassword != userPassword2):    
                 print(" Passwords do not match, please try again")
                 print("")
-                import createaccount
+                import usermenu
        
         
     # Verify Users Name and Password
-    def verifyUserLogin(self):        
-        from userlogin import userName, userPassword
+    # def verifyUserLogin(self):        
+        #from userlogin import userName, userPassword, userLogIn
         
         #try:
-        if self.mydb.is_connected():
-            mycursor = self.mydb.cursor()
-            resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
-            answer2 = (userName, userPassword)
-            mycursor.execute(resultSet2, answer2)
-            rows = mycursor.fetchone()
+        #if self.mydb.is_connected():
+            #mycursor = self.mydb.cursor()
+            #resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
+            #answer2 = (userName, userPassword)
+            #mycursor.execute(resultSet2, answer2)
+            #rows = mycursor.fetchone()
                
-            for row in rows:
-                while row == 1: 
-                    if (row == 1):
-                        print("You Have Logged In Successfully")
-                        import userchoice
-                        break
+            #for row in rows:
+                #while row == 1: 
+                    #if (row == 1):
+                        #print("You Have Logged In Successfully")
+                        #import userchoice
+                        #break
                             
                 #except:
-                    else:
-                        print("Username/password combo not found. Try again!")
-                        import userlogin
-                        continue
+                    #else:
+                        #print("Username/password combo not found. Try again!")
+                        #userLogIn()
+                        #continue
                     
                     
                     
     # https://github.com/microsoft/pylance-release/issues/757                
     # https://stackoverflow.com/questions/57121949/how-can-i-validate-in-python-if-a-username-and-password-already-exist-in-mysql-d                 
     def loginVerifyUser(self):
-        from userlogin import userName, userPassword
-        #append password and username in the emptey list below for later checkings
+        from userlogin import userName, userPassword, userLogIn 
+        #append password and username in the empty list below for later checkings
         mypassword_queue = []
         resultSet2 = "SELECT * FROM SharkAttackDatabase WHERE EXISTS (SELECT * FROM SharkAttackDatabase WHERE userName=%s AND userPassword=%s)"
         answer2 = (userName, userPassword)
@@ -246,32 +247,30 @@ class DB():
                 for x in row:
                     mypassword_queue.append(x)
         except:
-            print('error occured')
+           print('error occurred')
 
         if (userName and userPassword) in mypassword_queue:
-            print('there is something')
+            print('Log in Successful')
             import userchoice
             
         else:
-            print('there is no anything')
-            import userlogin
+            print('Username/Password combo does not match. Try again.')
+            userLogIn()
+            
 
-        self.mydb.close()
+        #self.mydb.close()
 
 
 #root = connections()
 #---you must have created a database with choice of your database name for this case it is testing
 #---- the data inside has name as tumusiime and password 1234
 #root.connect_database('tumusiime','1234')         
-                    
-                    
-                    
-
+  
           
         
     #Verify Admin name and Password
     def logInAsAdmin(self):
-        from adminlogin import adminName, adminPassword
+        from adminlogin import adminName, adminPassword, adminLogIn
         
         if self.mydb.is_connected():
             mycursor = self.mydb.cursor()
@@ -281,11 +280,16 @@ class DB():
             rows=mycursor.fetchone()
             
             for row in rows:
-                if (row == 1):
-                    print("You Have Logged In Successfully")
-                    import adminmenu
+                while row == 1:
+                    if (row == 1):
+                        print("You Have Logged In Successfully")
+                        import adminmenu
+                        break
                     
-                else:
-                    print("Admin name/password combo not found. Try again!")
-                    import adminlogin
+                    else:
+                        print("Admin name/password combo not found. Try again!")
+                        adminLogIn()
+                        continue
+        
     
+           

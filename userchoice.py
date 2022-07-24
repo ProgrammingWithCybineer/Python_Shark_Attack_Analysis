@@ -6,7 +6,9 @@ from database import DB
    
 #option for user to choose query menu or user data menu
 def usersMenuOption():
+    print("")
     print(" Welcome User. Please choose from below: ")
+    print("")
     print("################################")
     print(" (1) User Query menu")
     print("")
@@ -32,7 +34,7 @@ def usersMenuOption():
     elif (choice2 == 3): 
         print(" Main Menu")
         #mainMenu()
-        import userchoice
+        import sharkAnalysis
       
     elif (choice2 == 4): 
         print(" Exit Program")
