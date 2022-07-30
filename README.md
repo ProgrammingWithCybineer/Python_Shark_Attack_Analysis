@@ -1,6 +1,6 @@
 # Shark Attack Database Analysis – (Python)
 
-This is a CLI program that will analyze shark attack data using Python, Pandas, PySpark and MySQL. This program has CRUD functionality. The program connects to a MySQL database for user data storage.
+This is a CLI program that will analyze shark attack data using Python, Pandas, PySpark and MySQL. This program has CRUD functionality and connects to a MySQL database for user data storage.
 
 ### Technologies Used
   •	Python
@@ -29,3 +29,6 @@ This is a CLI program that will analyze shark attack data using Python, Pandas, 
   • Create a GUI for better user interaction
 
   •	Allow automatic update of the latest shark attack data.
+  
+  •	Allow user to pick species first, then choose questions based of that species.
+  
