@@ -48,7 +48,8 @@ class typesOfQueries(DB):
         if self.mydb.is_connected():
             #timeOfDaySharkAttack1 = "CREATE VIEW IF NOT EXISTS SharkAttackTable AS SELECT CAST(regexp_replace(time, 'h00', '') AS int) AS time FROM SharkAttackTable WHERE time IS NOT NULL"
             #timeOfDaySharkAttack1 = "SELECT AVG(time) FROM SharkAttackTable WHERE time IS NOT NULL"
-            timeOfDaySharkAttack1 = "SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(`time`))) FROM SharkAttackTable"        
+            timeOfDaySharkAttack1 = "SELECT SEC_TO_TIME(AVG(TIME_TO_SEC(`time`))) FROM SharkAttackTable;"  
+                                        
             mycursor = self.mydb.cursor()        
             mycursor.execute(timeOfDaySharkAttack1)
             output = mycursor.fetchall()
