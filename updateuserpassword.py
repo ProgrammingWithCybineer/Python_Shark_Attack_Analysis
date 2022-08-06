@@ -2,7 +2,7 @@ from databaseupdates import databaseQueries
 import sys
 import os
 
-
+#update user password
 def changeUserPassword():
     global userName
     global oldUserPassword

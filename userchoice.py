@@ -4,7 +4,7 @@ from database import DB
 
 
    
-#option for user to choose query menu or user data menu
+#User menu after logging in
 def usersMenuOption():
     print("")
     print(" Welcome User. Please choose from below: ")

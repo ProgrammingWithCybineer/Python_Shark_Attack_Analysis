@@ -4,7 +4,7 @@ import sys
 import os
 
 
-
+#Change User Name in database
 def changeUserName():
     global olduserName
     global newuserName

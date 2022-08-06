@@ -8,7 +8,7 @@ import os
 from database import DB
 
 
-# User Menu
+# User Query Menu
 def userQueryMenu():
                    
         print("")

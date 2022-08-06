@@ -5,7 +5,7 @@ import os
 import pandas as pd
 
 
-
+#Classes for queries regarding shark data
 class typesOfQueries(DB):
     
     def totalnumbersharkattacks(self):

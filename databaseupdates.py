@@ -3,7 +3,7 @@ import pandas as pd
 import sys
 import os
 
-
+#Classes for queries  regarding updates to the database for the user and admin
 class databaseQueries(DB):
     
     def updateUserName(self):

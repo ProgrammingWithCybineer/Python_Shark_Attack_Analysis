@@ -20,9 +20,7 @@ def createUserAccount():
     print("")
     print("Please type your retype password")
     userPassword2 = input("> ")
-        
-       
-
+ 
     DB().addUserToDatabase()
 
         
