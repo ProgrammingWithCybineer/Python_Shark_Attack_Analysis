@@ -32,6 +32,9 @@ This is a CLI program that will analyze shark attack data using Python, Pandas, 
   •	Allow user to pick species first, then choose questions based of that species.
   
  ## Requirements
+  •	mysql-connector
+  
+  •	pandas
   
   •	You will need to create "Shark_Attack_Login" Database before running app. Recommend using MySQL workbench to create the database first
   
