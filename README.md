@@ -50,6 +50,7 @@ git clone <repo-url>
 ```
   
  ## Running the App
+  • To start the program run the command below in the terminal
 ```bash
 python sharkAnalysis.py
 ```
