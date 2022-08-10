@@ -36,6 +36,8 @@ This is a CLI program that will analyze shark attack data using Python, Pandas, 
   
   •	pandas
   
+  •	MySQL Workbench
+  
   •	You will need to create "Shark_Attack_Login" Database before running app. Recommend using MySQL workbench to create the database first
   
   • Create  "adminaccount" table using MySQL Workbench. This will store all admin's name/ password
